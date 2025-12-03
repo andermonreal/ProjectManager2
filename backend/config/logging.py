@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DIR = BASE_DIR / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 
-LOG_FILE = LOG_DIR / "bikeup.json.log"
+LOG_FILE = LOG_DIR / "projectManager.json.log"
 
 
 # === Custom JSON Formatter ===
@@ -70,7 +70,7 @@ LOGGING = {
             "level": "INFO",
             "propagate": True,
         },
-        "bikeup": {
+        "projectManager": {
             "handlers": ["console", "file_json"],
             "level": "DEBUG",
             "propagate": False,

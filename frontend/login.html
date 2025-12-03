@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 420px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: #b00020;
+            font-size: 13px;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 14px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Iniciar sesión</h1>
+    <form id="loginForm" novalidate>
+        <div>
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" required />
+            <div class="error" data-for="email"></div>
+        </div>
+
+        <div>
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" required />
+            <div class="error" data-for="password"></div>
+        </div>
+
+        <div>
+            <button type="submit">Entrar</button>
+        </div>
+
+        <div id="message" role="status"></div>
+    </form>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const message = document.getElementById('message');
+
+        function setError(field, text) {
+            const el = document.querySelector('.error[data-for="' + field + '"]');
+            if (el) el.textContent = text || '';
+        }
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+            message.textContent = '';
+            message.className = '';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearErrors();
+
+            const email = form.email.value.trim();
+            const password = form.password.value;
+
+            let valid = true;
+            if (!email) { setError('email', 'El correo es obligatorio.'); valid = false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email', 'Correo inválido.'); valid = false; }
+
+            if (!password) { setError('password', 'La contraseña es obligatoria.'); valid = false; }
+
+            if (!valid) return;
+
+            try {
+                const res = await fetch('/api/users/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const body = await res.json().catch(() => ({}));
+
+                if (res.ok) {
+                    message.textContent = 'Inicio de sesión exitoso.';
+                    message.className = 'success';
+                    // Guarda tokens si la API devuelve access/refresh
+                    if (body.access) localStorage.setItem('access_token', body.access);
+                    if (body.refresh) localStorage.setItem('refresh_token', body.refresh);
+                    // Redirigir si es necesario:
+                    // window.location.href = '/dashboard';
+                } else {
+                    message.textContent = body.error || body.detail || 'Credenciales inválidas.';
+                    message.className = 'error';
+                }
+            } catch (err) {
+                console.error(err);
+                message.textContent = 'No se pudo conectar al servidor.';
+                message.className = 'error';
+            }
+        });
+    </script>
+</body>
+
+</html>

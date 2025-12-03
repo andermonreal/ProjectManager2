@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 420px;
+            margin: 40px auto;
+            padding: 0 16px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+        }
+
+        .secondary {
+            background: #e0e0e0;
+            color: #000;
+            border: none;
+        }
+
+        .danger {
+            background: #d32f2f;
+            color: #fff;
+            border: none;
+        }
+
+        #status {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bienvenido</h1>
+
+    <button id="btnRegister" class="btn secondary">Registrar</button>
+    <button id="btnLogin" class="btn primary">Iniciar sesión</button>
+    <button id="btnLogout" class="btn danger">Cerrar sesión</button>
+
+    <div id="status" aria-live="polite"></div>
+
+    <script>
+        const btnRegister = document.getElementById('btnRegister');
+        const btnLogin = document.getElementById('btnLogin');
+        const btnLogout = document.getElementById('btnLogout');
+        const status = document.getElementById('status');
+
+        // Ajusta las rutas si tus archivos están en otra carpeta
+        btnRegister.addEventListener('click', () => window.location.href = 'register.html');
+        btnLogin.addEventListener('click', () => window.location.href = 'login.html');
+
+        function isLoggedIn() {
+            return !!localStorage.getItem('access_token');
+        }
+
+        function updateUI() {
+            if (isLoggedIn()) {
+                btnLogin.style.display = 'none';
+                btnRegister.style.display = 'none';
+                btnLogout.style.display = 'block';
+                status.textContent = 'Usuario autenticado';
+            } else {
+                btnLogin.style.display = 'block';
+                btnRegister.style.display = 'block';
+                btnLogout.style.display = 'none';
+                status.textContent = 'No autenticado';
+            }
+        }
+
+        btnLogout.addEventListener('click', () => {
+            // Limpia tokens locales y redirige al login
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            // Si tu backend requiere logout activo, realiza la petición aquí antes de limpiar.
+            updateUI();
+            window.location.href = 'login.html';
+        });
+
+        // Inicializa UI según estado de sesión
+        updateUI();
+    </script>
+</body>
+
+</html>
