@@ -6,13 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Perfil de usuario</title>
     <style>
-        /* Reset básico */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f7fa;
@@ -25,78 +18,41 @@
         }
 
         h1 {
-            margin-bottom: 30px;
-            color: #1f2937;
-            font-size: 2rem;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
         #profile {
-            background: #ffffff;
-            padding: 30px 25px;
+            background: #fff;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             width: 100%;
             max-width: 600px;
-            transition: all 0.3s ease;
+            margin-bottom: 20px;
         }
 
         #profile p {
-            margin-bottom: 15px;
-            font-size: 16px;
-            line-height: 1.5;
+            margin-bottom: 12px;
         }
 
-        #profile strong {
-            color: #1f2937;
+        #profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
 
         button {
-            margin-top: 30px;
-            padding: 12px 25px;
-            font-size: 16px;
-            border: none;
+            padding: 10px 20px;
             border-radius: 8px;
-            background-color: #3b82f6;
-            color: white;
+            border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            background: #3b82f6;
+            color: white;
+            margin-top: 10px;
         }
 
         button:hover {
-            background-color: #2563eb;
-            transform: translateY(-2px);
-        }
-
-        /* Mensajes de error / advertencia */
-        .error-message {
-            color: #b00020;
-            font-weight: 600;
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .success-message {
-            color: #16a34a;
-            font-weight: 600;
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            #profile {
-                padding: 20px 15px;
-            }
-
-            h1 {
-                font-size: 1.75rem;
-            }
-
-            button {
-                width: 100%;
-                padding: 12px;
-            }
+            background: #2563eb;
         }
     </style>
 </head>
@@ -104,96 +60,40 @@
 <body>
     <h1>Perfil de usuario</h1>
     <div id="profile"></div>
-
-    <h2>Editar perfil</h2>
-    <form id="updateForm">
-        <div>
-            <label for="name">Nombre:</label>
-            <input id="name" name="name" type="text">
-        </div>
-        <div>
-            <label for="phone">Teléfono:</label>
-            <input id="phone" name="phone" type="tel">
-        </div>
-        <div>
-            <label for="icon">Icono (subir foto):</label>
-            <input id="icon" name="icon" type="file" accept="image/*">
-            <div id="previewIcon" style="margin-top:10px;"></div>
-        </div>
-        <div>
-            <label for="current_password">Contraseña actual:</label>
-            <input id="current_password" name="current_password" type="password">
-        </div>
-        <div>
-            <label for="new_password">Nueva contraseña:</label>
-            <input id="new_password" name="new_password" type="password">
-        </div>
-        <div>
-            <label for="confirm_password">Repetir nueva contraseña:</label>
-            <input id="confirm_password" name="confirm_password" type="password">
-        </div>
-        <button type="submit">Actualizar perfil</button>
-    </form>
-
+    <button onclick="window.location.href='modProfile.html'">Editar perfil</button>
     <button onclick="window.location.href='index.html'">Volver</button>
-
-    <div id="updateMessage"></div>
 
     <script>
         const profileDiv = document.getElementById('profile');
-        const updateForm = document.getElementById('updateForm');
-        const updateMessage = document.getElementById('updateMessage');
-        const previewIcon = document.getElementById('previewIcon');
 
-        function getAccessToken() {
-            return localStorage.getItem('access_token');
-        }
-
-        // Función para convertir imagen a Base64
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-                reader.readAsDataURL(file);
-            });
-        }
+        function getAccessToken() { return localStorage.getItem('access_token'); }
 
         async function loadProfile() {
             const token = getAccessToken();
-            if (!token) {
-                profileDiv.textContent = 'No autenticado. Por favor inicia sesión.';
-                return;
-            }
+            if (!token) { profileDiv.textContent = 'No autenticado.'; return; }
 
             try {
                 const res = await fetch('/api/users/profile', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 });
-
                 if (res.ok) {
                     const data = await res.json();
                     const u = data.data;
-
                     profileDiv.innerHTML = `
                         <p><strong>Nombre:</strong> ${u.name}</p>
                         <p><strong>Email:</strong> ${u.email}</p>
                         <p><strong>Teléfono:</strong> ${u.phone}</p>
                         <p><strong>Fecha nacimiento:</strong> ${u.birthday}</p>
                         <p><strong>Dinero:</strong> ${u.money}</p>
-                        <p><strong>Icono:</strong> ${u.icon ? '<img src="' + u.icon + '" alt="icono" style="width:50px;height:50px;border-radius:50%;">' : 'N/A'}</p>
+                        <p><strong>Icono:</strong> ${u.icon ? `<img src="${u.icon}" alt="icono">` : 'N/A'}</p>
                         <p><strong>Activo:</strong> ${u.is_active}</p>
                         <p><strong>Staff:</strong> ${u.is_staff}</p>
                         <p><strong>Superusuario:</strong> ${u.is_superuser}</p>
                         <p><strong>Último login:</strong> ${u.last_login || 'N/A'}</p>
                         <p><strong>Fecha creación:</strong> ${u.date_joined}</p>
                     `;
-
-                    // Prellenar el formulario con datos actuales
-                    updateForm.name.value = u.name;
-                    updateForm.phone.value = u.phone;
                 } else {
-                    profileDiv.textContent = 'Error al cargar perfil o token expirado.';
+                    profileDiv.textContent = 'Error al cargar perfil.';
                 }
             } catch (err) {
                 console.error(err);
@@ -201,96 +101,8 @@
             }
         }
 
-        // Vista previa de la imagen subida
-        updateForm.icon.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const base64 = await fileToBase64(file);
-                previewIcon.innerHTML = `<img src="${base64}" alt="preview" style="width:50px;height:50px;border-radius:50%;">`;
-            } else {
-                previewIcon.innerHTML = '';
-            }
-        });
-
-        updateForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            updateMessage.textContent = '';
-
-            const token = getAccessToken();
-            if (!token) {
-                updateMessage.textContent = 'No autenticado.';
-                return;
-            }
-
-            const payload = {};
-            const name = updateForm.name.value.trim();
-            const phone = updateForm.phone.value.trim();
-            const iconFile = updateForm.icon.files[0];
-            const current_password = updateForm.current_password.value;
-            const new_password = updateForm.new_password.value;
-            const confirm_password = updateForm.confirm_password.value;
-
-            if (name) payload.name = name;
-            if (phone) payload.phone = phone;
-            if (iconFile) {
-                payload.icon = await fileToBase64(iconFile); // convierte imagen a Base64
-            }
-            if (current_password || new_password || confirm_password) {
-                if (!current_password || !new_password || !confirm_password) {
-                    updateMessage.textContent = 'Debe rellenar todos los campos de contraseña.';
-                    updateMessage.style.color = 'red';
-                    return;
-                }
-                if (new_password !== confirm_password) {
-                    updateMessage.textContent = 'Las contraseñas nuevas no coinciden.';
-                    updateMessage.style.color = 'red';
-                    return;
-                }
-                payload.current_password = current_password;
-                payload.new_password = new_password;
-            }
-
-            if (Object.keys(payload).length === 0) {
-                updateMessage.textContent = 'Debe modificar al menos un campo.';
-                updateMessage.style.color = 'red';
-                return;
-            }
-
-            try {
-                const res = await fetch('/api/users/profile/update', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await res.json();
-
-                if (res.ok) {
-                    updateMessage.textContent = 'Perfil actualizado correctamente.';
-                    updateMessage.style.color = 'green';
-                    updateForm.current_password.value = '';
-                    updateForm.new_password.value = '';
-                    updateForm.confirm_password.value = '';
-                    updateForm.icon.value = '';
-                    previewIcon.innerHTML = '';
-                    loadProfile(); // recarga perfil actualizado
-                } else {
-                    updateMessage.textContent = JSON.stringify(data);
-                    updateMessage.style.color = 'red';
-                }
-            } catch (err) {
-                console.error(err);
-                updateMessage.textContent = 'Error de conexión.';
-                updateMessage.style.color = 'red';
-            }
-        });
-
         loadProfile();
     </script>
 </body>
-
 
 </html>
