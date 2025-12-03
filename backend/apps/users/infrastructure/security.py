@@ -1,5 +1,5 @@
 """
-apps/authentication/infrastructure/security.py
+apps/users/infrastructure/security.py
 
 Implementación de servicios de seguridad
 Hash de contraseñas y generación de tokens JWT
@@ -63,8 +63,13 @@ class JWTTokenService(ITokenService):
         Returns:
             Dict con 'access' y 'refresh' tokens
         """
-        # Crear refresh token
-        refresh = RefreshToken()
+        from .models import User
+        
+        # Buscar la instancia del modelo Django
+        django_user = User.objects.get(id=user.id)
+        
+        # Crear refresh token con el modelo Django
+        refresh = RefreshToken.for_user(django_user)
         
         # Agregar claims personalizados
         refresh['user_id'] = user.id
@@ -77,6 +82,7 @@ class JWTTokenService(ITokenService):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+          
     
     def verify_token(self, token: str) -> bool:
         """

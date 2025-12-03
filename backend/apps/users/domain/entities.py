@@ -1,5 +1,5 @@
 """
-apps/authentication/domain/entities.py
+apps/users/domain/entities.py
 
 Entidades de dominio - Reglas de negocio puras
 No dependen de Django, base de datos ni frameworks

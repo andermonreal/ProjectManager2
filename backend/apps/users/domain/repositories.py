@@ -1,5 +1,5 @@
 """
-apps/authentication/domain/repositories.py
+apps/users/domain/repositories.py
 
 Interfaces de repositorios - Contratos del dominio
 Define QUÉ operaciones se pueden hacer, no CÓMO

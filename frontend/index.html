@@ -59,6 +59,7 @@
     <button id="btnRegister" class="btn secondary">Registrar</button>
     <button id="btnLogin" class="btn primary">Iniciar sesión</button>
     <button id="btnLogout" class="btn danger">Cerrar sesión</button>
+    <button id="btnProfile" class="btn info">Perfil</button>
 
     <div id="status" aria-live="polite"></div>
 
@@ -66,42 +67,65 @@
         const btnRegister = document.getElementById('btnRegister');
         const btnLogin = document.getElementById('btnLogin');
         const btnLogout = document.getElementById('btnLogout');
+        const btnProfile = document.getElementById('btnProfile');
         const status = document.getElementById('status');
 
-        // Ajusta las rutas si tus archivos están en otra carpeta
+        // Navegación
         btnRegister.addEventListener('click', () => window.location.href = 'register.html');
         btnLogin.addEventListener('click', () => window.location.href = 'login.html');
+        btnProfile.addEventListener('click', () => window.location.href = 'profile.html');
 
         function isLoggedIn() {
             return !!localStorage.getItem('access_token');
         }
+
+        async function logout() {
+            const token = localStorage.getItem('access_token');
+            const refreshToken = localStorage.getItem('refresh_token');
+            if (refreshToken) {
+                try {
+                    await fetch('/api/users/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: JSON.stringify({ refresh_token: refreshToken })  // Si tu API requiere refresh token, añádelo
+                    });
+                } catch (err) {
+                    console.warn('No se pudo notificar al servidor del logout', err);
+                }
+            }
+
+            // Limpiar tokens
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            updateUI();
+
+        }
+
+        btnLogout.addEventListener('click', logout);
 
         function updateUI() {
             if (isLoggedIn()) {
                 btnLogin.style.display = 'none';
                 btnRegister.style.display = 'none';
                 btnLogout.style.display = 'block';
+                btnProfile.style.display = 'block';
                 status.textContent = 'Usuario autenticado';
             } else {
                 btnLogin.style.display = 'block';
                 btnRegister.style.display = 'block';
                 btnLogout.style.display = 'none';
+                btnProfile.style.display = 'none';
                 status.textContent = 'No autenticado';
             }
         }
-
-        btnLogout.addEventListener('click', () => {
-            // Limpia tokens locales y redirige al login
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('refresh_token');
-            // Si tu backend requiere logout activo, realiza la petición aquí antes de limpiar.
-            updateUI();
-            window.location.href = 'login.html';
-        });
 
         // Inicializa UI según estado de sesión
         updateUI();
     </script>
 </body>
+
 
 </html>

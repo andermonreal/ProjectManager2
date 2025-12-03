@@ -1,5 +1,5 @@
 """
-apps/authentication/application/dtos.py
+apps/users/application/dtos.py
 
 Data Transfer Objects - Objetos para transferir datos entre capas
 Separan la representación externa de la lógica interna
@@ -118,3 +118,48 @@ class LogoutDTO:
         """Validaciones básicas de entrada"""
         if not self.refresh_token:
             raise ValueError("El refresh token es obligatorio")
+        
+@dataclass
+class UpdateUserDTO:
+    """
+    DTO para actualizar datos del usuario
+    Solo permite modificar: nombre, teléfono, icono y contraseña
+    """
+    user_id: int
+    name: Optional[str] = None
+    phone: Optional[str] = None
+    icon: Optional[str] = None
+    current_password: Optional[str] = None  # Requerido si quiere cambiar password
+    new_password: Optional[str] = None
+    
+    def validate(self) -> None:
+        """Validaciones básicas de entrada"""
+        # Al menos un campo debe estar presente
+        if not any([self.name, self.phone, self.icon is not None, self.new_password]):
+            raise ValueError("Debe proporcionar al menos un campo para actualizar")
+        
+        # Si quiere cambiar contraseña, debe proporcionar la actual
+        if self.new_password:
+            if not self.current_password:
+                raise ValueError("Debe proporcionar la contraseña actual para cambiarla")
+            
+            if len(self.new_password) < 8:
+                raise ValueError("La nueva contraseña debe tener al menos 8 caracteres")
+        
+        # Validar nombre si se proporciona
+        if self.name is not None:
+            if len(self.name.strip()) == 0:
+                raise ValueError("El nombre no puede estar vacío")
+            if len(self.name) > 100:
+                raise ValueError("El nombre es demasiado largo (máximo 100 caracteres)")
+        
+        # Validar teléfono si se proporciona
+        if self.phone is not None:
+            if len(self.phone.strip()) == 0:
+                raise ValueError("El teléfono no puede estar vacío")
+            if len(self.phone) > 20:
+                raise ValueError("El teléfono es demasiado largo (máximo 20 caracteres)")
+        
+        # Validar icono si se proporciona
+        if self.icon is not None and len(self.icon) > 300:
+            raise ValueError("La URL del icono es demasiado larga (máximo 300 caracteres)")

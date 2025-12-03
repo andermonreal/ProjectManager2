@@ -1,5 +1,5 @@
 """
-apps/authentication/infrastructure/models.py
+apps/users/infrastructure/models.py
 
 Modelos de Django - Capa de infraestructura/persistencia
 Mapean las entidades de dominio a tablas de PostgreSQL
@@ -76,8 +76,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     class Meta:
         db_table = 'users'  # Nombre de la tabla en PostgreSQL
-        verbose_name = 'Usuario'
-        verbose_name_plural = 'Usuarios'
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        app_label = "users"
         ordering = ['-date_joined']
         indexes = [
             models.Index(fields=['email']),

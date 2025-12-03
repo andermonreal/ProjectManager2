@@ -112,6 +112,23 @@
             message.className = '';
         }
 
+        // Función para obtener access token de localStorage
+        function getAccessToken() {
+            return localStorage.getItem('access_token') || null;
+            return localStorage.getItem('refresh_token') || null;
+        }
+
+        // Función para enviar peticiones con JWT automáticamente
+        async function fetchWithAuth(url, options = {}) {
+            const headers = options.headers || {};
+            const token = getAccessToken();
+            if (token) {
+                headers['Authorization'] = 'Bearer ' + token;
+            }
+            options.headers = headers;
+            return fetch(url, options);
+        }
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             clearErrors();
@@ -126,7 +143,6 @@
             };
 
             let valid = true;
-
             if (!data.name) { setError('name', 'El nombre es obligatorio.'); valid = false; }
             if (!data.email) { setError('email', 'El correo es obligatorio.'); valid = false; }
             else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { setError('email', 'Correo inválido.'); valid = false; }
@@ -138,7 +154,6 @@
             else if (data.password !== data.confirm) { setError('confirm', 'Las contraseñas no coinciden.'); valid = false; }
 
             if (!data.birthday) { setError('birthday', 'La fecha de nacimiento es obligatoria.'); valid = false; }
-
             if (data.phone && !/^[0-9+\-\s()]{6,20}$/.test(data.phone)) { setError('phone', 'Teléfono inválido.'); valid = false; }
 
             if (!valid) return;
@@ -151,7 +166,6 @@
                 birthday: data.birthday
             };
 
-            // Intenta enviar al servidor; ajusta la URL a tu endpoint real.
             try {
                 const res = await fetch('/api/users/register', {
                     method: 'POST',
@@ -159,12 +173,18 @@
                     body: JSON.stringify(payload)
                 });
 
+                const body = await res.json().catch(() => ({}));
+
                 if (res.ok) {
+                    // Guardar solo el access token
+                    localStorage.setItem('access_token', body.data.access);
+                    localStorage.setItem('refresh_token', body.data.refresh);
+
                     message.textContent = 'Registro exitoso.';
                     message.className = 'success';
                     form.reset();
+                    window.location.href = '/index.html';
                 } else {
-                    const body = await res.json().catch(() => ({}));
                     message.textContent = body.error || 'Error en el registro.';
                     message.className = 'error';
                 }
@@ -174,7 +194,21 @@
                 message.className = 'error';
             }
         });
+
+        // Ejemplo: usar fetchWithAuth para futuras peticiones protegidas
+        async function getProfile() {
+            const res = await fetchWithAuth('/api/users/profile');
+            if (res.ok) {
+                const profile = await res.json();
+                console.log('Perfil usuario:', profile);
+            } else {
+                console.warn('No autorizado o token expirado');
+            }
+        }
+
     </script>
+
+
 </body>
 
 </html>

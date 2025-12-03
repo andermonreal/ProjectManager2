@@ -77,10 +77,28 @@
             const el = document.querySelector('.error[data-for="' + field + '"]');
             if (el) el.textContent = text || '';
         }
+
         function clearErrors() {
             document.querySelectorAll('.error').forEach(e => e.textContent = '');
             message.textContent = '';
             message.className = '';
+        }
+
+        // Función para obtener access token de localStorage
+        function getAccessToken() {
+            return localStorage.getItem('access_token') || null;
+            return localStorage.getItem('refresh_token') || null;
+        }
+
+        // Función para enviar peticiones con JWT automáticamente
+        async function fetchWithAuth(url, options = {}) {
+            const headers = options.headers || {};
+            const token = getAccessToken();
+            if (token) {
+                headers['Authorization'] = 'Bearer ' + token;
+            }
+            options.headers = headers;
+            return fetch(url, options);
         }
 
         form.addEventListener('submit', async (e) => {
@@ -110,11 +128,14 @@
                 if (res.ok) {
                     message.textContent = 'Inicio de sesión exitoso.';
                     message.className = 'success';
-                    // Guarda tokens si la API devuelve access/refresh
-                    if (body.access) localStorage.setItem('access_token', body.access);
-                    if (body.refresh) localStorage.setItem('refresh_token', body.refresh);
-                    // Redirigir si es necesario:
-                    // window.location.href = '/dashboard';
+
+                    // Guardar solo el access token
+                    if (body.data && body.data.access) {
+                        localStorage.setItem('access_token', body.data.access);
+                        localStorage.setItem('refresh_token', body.data.refresh);
+                    }
+
+                    window.location.href = '/index.html';
                 } else {
                     message.textContent = body.error || body.detail || 'Credenciales inválidas.';
                     message.className = 'error';
@@ -125,7 +146,19 @@
                 message.className = 'error';
             }
         });
+
+        // Ejemplo: usar fetchWithAuth en futuras peticiones protegidas
+        async function getProfile() {
+            const res = await fetchWithAuth('/api/users/profile');
+            if (res.ok) {
+                const profile = await res.json();
+                console.log('Perfil usuario:', profile);
+            } else {
+                console.warn('No autorizado o token expirado');
+            }
+        }
     </script>
+
 </body>
 
 </html>

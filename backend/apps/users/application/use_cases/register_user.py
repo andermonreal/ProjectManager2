@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from decimal import Decimal
 from ...application.dtos import AuthTokensDTO, RegisterUserDTO, UserResponseDTO
 from ...domain.entities import UserEntity

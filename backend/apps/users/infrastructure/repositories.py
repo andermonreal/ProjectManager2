@@ -1,5 +1,5 @@
 """
-apps/authentication/infrastructure/repositories.py
+apps/users/infrastructure/repositories.py
 
 Implementación de los repositorios - Capa de infraestructura
 Implementa las interfaces definidas en el dominio

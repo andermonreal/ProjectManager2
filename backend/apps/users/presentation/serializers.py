@@ -1,5 +1,5 @@
 """
-apps/authentication/presentation/serializers.py
+apps/users/presentation/serializers.py
 
 Serializers - Capa de presentación
 Validan y transforman datos HTTP a DTOs
@@ -75,3 +75,48 @@ class AuthTokensSerializer(serializers.Serializer):
     access = serializers.CharField()
     refresh = serializers.CharField()
     user = UserResponseSerializer()
+
+class UpdateUserSerializer(serializers.Serializer):
+    """
+    Serializer para actualizar datos del usuario
+    
+    Todos los campos son opcionales, pero al menos uno debe estar presente
+    """
+    name = serializers.CharField(max_length=100, required=False, allow_blank=False)
+    phone = serializers.CharField(max_length=20, required=False, allow_blank=False)
+    icon = serializers.CharField(max_length=300, required=False, allow_blank=True, allow_null=True)
+    current_password = serializers.CharField(write_only=True, required=False)
+    new_password = serializers.CharField(write_only=True, min_length=8, required=False)
+    
+    def validate(self, attrs):
+        """Validaciones personalizadas"""
+        # Si se proporciona new_password, current_password es obligatorio
+        if 'new_password' in attrs and 'current_password' not in attrs:
+            raise serializers.ValidationError({
+                'current_password': 'Debe proporcionar la contraseña actual para cambiarla'
+            })
+        
+        # Al menos un campo debe estar presente
+        updatable_fields = ['name', 'phone', 'icon', 'new_password']
+        if not any(field in attrs for field in updatable_fields):
+            raise serializers.ValidationError(
+                'Debe proporcionar al menos un campo para actualizar'
+            )
+        
+        return attrs
+    
+    def validate_name(self, value):
+        """Valida y normaliza el nombre"""
+        if value:
+            value = value.strip()
+            if len(value) == 0:
+                raise serializers.ValidationError("El nombre no puede estar vacío")
+        return value
+    
+    def validate_phone(self, value):
+        """Valida y normaliza el teléfono"""
+        if value:
+            value = value.strip()
+            if len(value) == 0:
+                raise serializers.ValidationError("El teléfono no puede estar vacío")
+        return value

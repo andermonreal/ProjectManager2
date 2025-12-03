@@ -1,42 +1,38 @@
 """
-apps/authentication/presentation/views.py
+apps/users/presentation/views.py
 
 Views - Capa de presentación
 Maneja peticiones HTTP y delega a los casos de uso
 """
 
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .serializers import (
     RegisterUserSerializer,
     LoginUserSerializer,
     LogoutSerializer,
     AuthTokensSerializer,
+    UpdateUserSerializer,
     UserResponseSerializer
 )
-from ..application.dtos import RegisterUserDTO, LoginUserDTO, LogoutDTO
+from ..application.dtos import RegisterUserDTO, LoginUserDTO, LogoutDTO, UpdateUserDTO
 from ..application.use_cases.register_user import RegisterUserUseCase
 from ..application.use_cases.login_user import LoginUserUseCase
 from ..application.use_cases.logout_user import LogoutUserUseCase
 from ..application.use_cases.get_user_profile import GetUserProfileUseCase
+from ..application.use_cases.update_user import UpdateUserUseCase
 from ..infrastructure.repositories import DjangoUserRepository
 from ..infrastructure.security import DjangoPasswordHasher, JWTTokenService
 
 
 class RegisterView(APIView):
-    """
-    Vista para registrar nuevos usuarios
-    
-    POST /api/auth/register/
-    """
     permission_classes = (AllowAny,)
     
     def post(self, request):
-        # 1. Validar entrada con serializer
         serializer = RegisterUserSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(
@@ -44,7 +40,6 @@ class RegisterView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # 2. Crear DTO
         dto = RegisterUserDTO(
             name=serializer.validated_data['name'],
             email=serializer.validated_data['email'],
@@ -54,12 +49,10 @@ class RegisterView(APIView):
             icon=serializer.validated_data.get('icon')
         )
         
-        # 3. Inyectar dependencias
         user_repository = DjangoUserRepository()
         password_hasher = DjangoPasswordHasher()
         token_service = JWTTokenService()
         
-        # 4. Ejecutar caso de uso
         use_case = RegisterUserUseCase(
             user_repository,
             password_hasher,
@@ -68,8 +61,6 @@ class RegisterView(APIView):
         
         try:
             result = use_case.execute(dto)
-            
-            # 5. Serializar respuesta
             response_serializer = AuthTokensSerializer(result)
             
             return Response(
@@ -81,22 +72,13 @@ class RegisterView(APIView):
             )
             
         except ValueError as e:
-            return Response(
-                {'error': str(e)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(APIView):
-    """
-    Vista para iniciar sesión
-    
-    POST /api/auth/login/
-    """
     permission_classes = (AllowAny,)
     
     def post(self, request):
-        # 1. Validar entrada
         serializer = LoginUserSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(
@@ -104,18 +86,15 @@ class LoginView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # 2. Crear DTO
         dto = LoginUserDTO(
             email=serializer.validated_data['email'],
             password=serializer.validated_data['password']
         )
         
-        # 3. Inyectar dependencias
         user_repository = DjangoUserRepository()
         password_hasher = DjangoPasswordHasher()
         token_service = JWTTokenService()
         
-        # 4. Ejecutar caso de uso
         use_case = LoginUserUseCase(
             user_repository,
             password_hasher,
@@ -124,8 +103,6 @@ class LoginView(APIView):
         
         try:
             result = use_case.execute(dto)
-            
-            # 5. Serializar respuesta
             response_serializer = AuthTokensSerializer(result)
             
             return Response(
@@ -137,23 +114,13 @@ class LoginView(APIView):
             )
             
         except ValueError as e:
-            return Response(
-                {'error': str(e)},
-                status=status.HTTP_401_UNAUTHORIZED
-            )
+            return Response({'error': str(e)}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutView(APIView):
-    """
-    Vista para cerrar sesión
-    
-    POST /api/auth/logout/
-    """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (JWTAuthentication,)
     
     def post(self, request):
-        # 1. Validar entrada
         serializer = LogoutSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(
@@ -161,79 +128,47 @@ class LogoutView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # 2. Crear DTO
         dto = LogoutDTO(
             refresh_token=serializer.validated_data['refresh_token']
         )
         
-        # 3. Inyectar dependencias
         token_service = JWTTokenService()
-        
-        # 4. Ejecutar caso de uso
         use_case = LogoutUserUseCase(token_service)
         
         try:
             use_case.execute(dto)
-            
             return Response(
                 {'message': 'Sesión cerrada exitosamente'},
                 status=status.HTTP_200_OK
             )
             
         except ValueError as e:
-            return Response(
-                {'error': str(e)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProfileView(APIView):
-    """
-    Vista para obtener el perfil del usuario autenticado
-    
-    GET /api/auth/profile/
-    """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (JWTAuthentication,)
     
     def get(self, request):
-        # 1. Obtener ID del usuario autenticado
         user_id = request.user.id
-        
-        # 2. Inyectar dependencias
         user_repository = DjangoUserRepository()
-        
-        # 3. Ejecutar caso de uso
         use_case = GetUserProfileUseCase(user_repository)
         
         try:
             result = use_case.execute(user_id)
-            
-            # 4. Serializar respuesta
             response_serializer = UserResponseSerializer(result)
             
             return Response(
-                {
-                    'data': response_serializer.data
-                },
+                {'data': response_serializer.data},
                 status=status.HTTP_200_OK
             )
             
         except ValueError as e:
-            return Response(
-                {'error': str(e)},
-                status=status.HTTP_404_NOT_FOUND
-            )
+            return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ProtectedExampleView(APIView):
-    """
-    Vista de ejemplo protegida
-    
-    GET /api/auth/protected/
-    """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (JWTAuthentication,)
     
     def get(self, request):
         return Response({
@@ -244,14 +179,72 @@ class ProtectedExampleView(APIView):
 
 
 class PublicExampleView(APIView):
-    """
-    Vista de ejemplo pública
-    
-    GET /api/auth/public/
-    """
     permission_classes = (AllowAny,)
     
     def get(self, request):
         return Response({
             'message': 'Esta es una ruta pública, no requiere autenticación.'
         })
+
+class UpdateUserView(APIView):
+    """
+    Vista para actualizar datos del usuario autenticado
+    
+    PATCH /api/auth/profile/update/
+    
+    Campos modificables:
+    - name: Nombre del usuario
+    - phone: Teléfono
+    - icon: URL del avatar/icono
+    - new_password: Nueva contraseña (requiere current_password)
+    """
+    permission_classes = (IsAuthenticated,)
+    
+    def patch(self, request):
+        # 1. Validar entrada
+        serializer = UpdateUserSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                {'errors': serializer.errors},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # 2. Crear DTO
+        dto = UpdateUserDTO(
+            user_id=request.user.id,
+            name=serializer.validated_data.get('name'),
+            phone=serializer.validated_data.get('phone'),
+            icon=serializer.validated_data.get('icon'),
+            current_password=serializer.validated_data.get('current_password'),
+            new_password=serializer.validated_data.get('new_password')
+        )
+        
+        # 3. Inyectar dependencias
+        user_repository = DjangoUserRepository()
+        password_hasher = DjangoPasswordHasher()
+        
+        # 4. Ejecutar caso de uso
+        use_case = UpdateUserUseCase(
+            user_repository,
+            password_hasher
+        )
+        
+        try:
+            result = use_case.execute(dto)
+            
+            # 5. Serializar respuesta
+            response_serializer = UserResponseSerializer(result)
+            
+            return Response(
+                {
+                    'message': 'Usuario actualizado exitosamente',
+                    'data': response_serializer.data
+                },
+                status=status.HTTP_200_OK
+            )
+            
+        except ValueError as e:
+            return Response(
+                {'error': str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )

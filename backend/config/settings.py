@@ -134,7 +134,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,                # Añadir token antiguo a blacklist
     'UPDATE_LAST_LOGIN': True,                       # Actualizar last_login del usuario
     
-    'ALGORITHM': 'RS256',                            # Algoritmo de encriptación
+    'ALGORITHM': 'HS256',                            # Algoritmo de encriptación
     'SIGNING_KEY': SECRET_KEY,                       # Clave secreta de Django
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
