@@ -594,3 +594,19 @@
 {"timestamp": "2025-12-03 22:10:33", "level": "WARNING", "logger": "django.request", "message": "Unauthorized: /api/users/profile", "module": "log", "filename": "log.py", "line": 241}
 {"timestamp": "2025-12-03 22:10:33", "level": "WARNING", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 401 183", "module": "basehttp", "filename": "basehttp.py", "line": 212}
 {"timestamp": "2025-12-03 22:10:33", "level": "WARNING", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 401 183", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:10:19", "level": "INFO", "logger": "django.utils.autoreload", "message": "Watching for file changes with StatReloader", "module": "autoreload", "filename": "autoreload.py", "line": 668}
+{"timestamp": "2025-12-09 17:10:19", "level": "INFO", "logger": "django.utils.autoreload", "message": "Watching for file changes with StatReloader", "module": "autoreload", "filename": "autoreload.py", "line": 668}
+{"timestamp": "2025-12-09 17:11:40", "level": "WARNING", "logger": "django.request", "message": "Unauthorized: /api/users/login", "module": "log", "filename": "log.py", "line": 241}
+{"timestamp": "2025-12-09 17:11:40", "level": "WARNING", "logger": "django.request", "message": "Unauthorized: /api/users/login", "module": "log", "filename": "log.py", "line": 241}
+{"timestamp": "2025-12-09 17:11:40", "level": "WARNING", "logger": "django.server", "message": "\"POST /api/users/login HTTP/1.0\" 401 35", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:11:40", "level": "WARNING", "logger": "django.server", "message": "\"POST /api/users/login HTTP/1.0\" 401 35", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:12:43", "level": "INFO", "logger": "django.server", "message": "\"POST /api/users/register HTTP/1.0\" 201 997", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:12:43", "level": "INFO", "logger": "django.server", "message": "\"POST /api/users/register HTTP/1.0\" 201 997", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:13:49", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:13:49", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:13:54", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:13:54", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:16:48", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:16:48", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:37:57", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
+{"timestamp": "2025-12-09 17:37:57", "level": "INFO", "logger": "django.server", "message": "\"GET /api/users/profile HTTP/1.0\" 200 245", "module": "basehttp", "filename": "basehttp.py", "line": 212}
