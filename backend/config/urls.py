@@ -24,7 +24,7 @@ urlpatterns = [
     
     # Autenticación
     path('api/users/', include('apps.users.presentation.urls')),
-    path('api/projects/', include('apps.projects.urls')),
+    path('api/projects/', include('apps.projects.presentation.urls')),
     
     # JWT tokens
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

@@ -2,318 +2,407 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Registro de usuario</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Creación de Superusuarios</title>
     <style>
         :root {
-            --bg-1: #f6f8fb;
-            --card-bg: #ffffff;
-            --accent: #6c63ff;
-            --accent-2: #00bfa6;
-            --muted: #6b7280;
-            --error: #e11d48;
-            --success: #16a34a;
-            --glass: rgba(255, 255, 255, 0.6);
+            --bg-main: #020617;
+            --bg-admin: rgba(15, 23, 42, 0.95);
+            --bg-glass: rgba(17, 24, 39, 0.9);
+            --accent-admin: #8b5cf6;
+            --accent-glow: rgba(139, 92, 246, 0.4);
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-admin: rgba(148, 163, 184, 0.25);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-admin: 0 20px 50px rgba(15, 23, 42, 0.95);
+            --shadow-glow: 0 0 0 1px rgba(139, 92, 246, 0.4);
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
         }
 
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         html,
         body {
             height: 100%;
-            margin: 0;
-            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            overflow: hidden;
         }
 
         body {
-            background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 50%);
+            font-family: var(--font-main);
+            background:
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #020617 0%, #0a0e1a 100%);
+            color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 32px;
-            color: #0f172a;
+            padding: 12px;
         }
 
-        /* Header above the card */
+        /* CONTENEDOR COMPACTO */
+        .admin-container {
+            width: 100%;
+            max-width: 580px;
+            height: 100vh;
+            max-height: 100vh;
+            background: var(--bg-admin);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-admin);
+            box-shadow: var(--shadow-admin);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* HEADER COMPACTO */
         .page-header {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(99, 102, 241, 0.08));
+            padding: 20px 24px;
             text-align: center;
-            margin-bottom: -20px;
-            /* sit visually above the card */
-            z-index: 2;
+            border-bottom: 1px solid var(--border-admin);
+            flex-shrink: 0;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-admin), #10b981);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         }
 
         .page-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-main), #f8fafc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, var(--accent-admin), #a78bfa);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+        }
+
+        .lead {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
             margin: 0;
-            font-size: 26px;
-            letter-spacing: -0.4px;
-            color: #0b1220;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
-            display: inline-block;
-            padding: 8px 14px;
-            border-radius: 10px;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
         }
 
-        .page-header p.lead {
-            margin: 8px 0 0 0;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 720px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), var(--card-bg));
-            border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-            padding: 28px;
+        /* FORM COMPACTO */
+        .admin-form {
+            flex: 1;
+            padding: 24px;
             display: grid;
-            gap: 18px;
-            align-items: start;
-            border: 1px solid rgba(99, 102, 241, 0.06);
-            transform: translateY(0);
-            position: relative;
-            padding-top: 44px;
-            /* ensure header overlap area doesn't hide content */
-        }
-
-        h1 {
-            margin: 0 0 4px 0;
-            font-size: 22px;
-            letter-spacing: -0.2px;
-            color: #0b1220;
-        }
-
-        p.lead {
-            margin: 0;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        form {
-            display: grid;
-            gap: 14px;
             grid-template-columns: 1fr 1fr;
+            gap: 16px 16px;
+            overflow: auto;
         }
 
-        /* single-column elements (buttons, message) span both columns */
-        form>div.full {
+        .full-width {
             grid-column: 1 / -1;
         }
 
-        label {
-            display: block;
-            font-size: 13px;
-            color: #0f172a;
-            margin-bottom: 6px;
-            font-weight: 600;
+        .input-group {
+            position: relative;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="tel"],
-        input[type="date"] {
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .input-field {
             width: 100%;
             padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(15, 23, 42, 0.06);
-            background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.85));
+            background: rgba(17, 24, 39, 0.9);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            transition: all var(--transition);
+        }
+
+        .input-field:focus {
             outline: none;
-            transition: box-shadow .16s, border-color .12s, transform .08s;
-            font-size: 14px;
-            color: #06121b;
-            box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02) inset;
-        }
-
-        input::placeholder {
-            color: #9aa3b2;
-        }
-
-        input:focus {
-            border-color: rgba(108, 99, 255, 0.9);
-            box-shadow: 0 6px 18px rgba(108, 99, 255, 0.08);
+            border-color: var(--accent-admin);
+            box-shadow: var(--shadow-glow), 0 0 0 3px var(--accent-glow);
+            background: rgba(17, 24, 39, 0.98);
             transform: translateY(-1px);
         }
 
-        .helper {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 6px;
-        }
-
+        /* ERRORES COMPACTOS */
         .error {
-            color: var(--error);
-            font-size: 13px;
-            margin-top: 6px;
-            min-height: 18px;
-        }
-
-        .success {
-            color: var(--success);
-            font-size: 14px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 6px;
-        }
-
-        button[type="submit"] {
-            background: linear-gradient(90deg, var(--accent), #8a84ff);
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            box-shadow: 0 8px 24px rgba(108, 99, 255, 0.14);
-            transition: transform .12s, box-shadow .12s, opacity .12s;
-        }
-
-        button[type="submit"]:hover {
+            min-height: 16px;
+            font-size: 0.75rem;
+            color: var(--danger);
+            margin-top: 4px;
+            opacity: 0;
             transform: translateY(-2px);
+            transition: all 0.2s ease;
         }
 
-        button[type="submit"]:active {
+        .error.show {
+            opacity: 1;
             transform: translateY(0);
         }
 
-        /* secondary small button style (if needed) */
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid rgba(15, 23, 42, 0.06);
-            padding: 10px 14px;
-            border-radius: 10px;
-            color: var(--muted);
+        /* BOTÓN COMPACTO */
+        .submit-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--accent-admin), #7c3aed);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
+            margin-top: 8px;
+            transition: all var(--transition);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 35px rgba(139, 92, 246, 0.6);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* MENSAJE COMPACTO */
         #message {
-            font-size: 14px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            display: inline-block;
+            grid-column: 1 / -1;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: all 0.3s ease;
         }
 
-        /* responsive */
-        @media (max-width:720px) {
-            .card {
-                padding: 20px;
-            }
+        #message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-            form {
+        .success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            color: #bbf7d0;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid rgba(239, 68, 68, 0.5);
+            color: #fecaca;
+        }
+
+        /* LINK COMPACTO */
+        .back-link {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 12px 0 8px;
+            border-top: 1px solid var(--border-admin);
+        }
+
+        .back-link a {
+            color: var(--accent-admin);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 16px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: var(--radius-md);
+            display: inline-block;
+            transition: all var(--transition);
+        }
+
+        .back-link a:hover {
+            background: rgba(139, 92, 246, 0.12);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 680px) {
+            .admin-form {
                 grid-template-columns: 1fr;
+                gap: 14px;
+                padding: 20px 16px;
             }
 
-            .actions {
-                justify-content: stretch;
-                flex-direction: column-reverse;
+            body {
+                padding: 8px;
             }
 
-            button[type="submit"] {
-                width: 100%;
-            }
-
-            .page-header h1 {
-                font-size: 20px;
-                padding: 6px 10px;
+            .page-header {
+                padding: 16px 20px;
             }
         }
     </style>
 </head>
 
 <body>
-    <header class="page-header">
-        <h1>Creación de superusuarios</h1>
-        <p class="lead">Registra nuevos usuarios administradores</p>
-    </header>
-    <form id="registerForm" novalidate>
-        <div>
-            <label for="name">Nombre</label>
-            <input id="name" name="name" type="text" required />
-            <div class="error" data-for="name"></div>
-        </div>
+    <div class="admin-container">
+        <header class="page-header">
+            <h1>Superusuarios <span class="admin-badge">ADMIN</span></h1>
+            <p class="lead">Crea nuevos administradores</p>
+        </header>
 
-        <div>
-            <label for="email">Correo electrónico</label>
-            <input id="email" name="email" type="email" required />
-            <div class="error" data-for="email"></div>
-        </div>
+        <form id="registerForm" class="admin-form" novalidate>
+            <div class="input-group">
+                <label for="name">Nombre</label>
+                <input id="name" name="name" type="text" class="input-field" placeholder="Admin" required />
+                <div class="error" data-for="name"></div>
+            </div>
 
-        <div>
-            <label for="password">Contraseña</label>
-            <input id="password" name="password" type="password" required minlength="8" />
-            <div class="error" data-for="password"></div>
-        </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" class="input-field" placeholder="admin@ejemplo.com"
+                    required />
+                <div class="error" data-for="email"></div>
+            </div>
 
-        <div>
-            <label for="confirm">Confirmar contraseña</label>
-            <input id="confirm" name="confirm" type="password" required />
-            <div class="error" data-for="confirm"></div>
-        </div>
+            <div class="input-group full-width">
+                <label for="password">Contraseña</label>
+                <input id="password" name="password" type="password" class="input-field" placeholder="Mín. 8 chars"
+                    required minlength="8" />
+                <div class="error" data-for="password"></div>
+            </div>
 
-        <div>
-            <label for="phone">Teléfono</label>
-            <input id="phone" name="phone" type="tel" pattern="^[0-9+\-\s()]{6,20}$" />
-            <div class="error" data-for="phone"></div>
-        </div>
+            <div class="input-group full-width">
+                <label for="confirm">Confirmar</label>
+                <input id="confirm" name="confirm" type="password" class="input-field" placeholder="Repetir contraseña"
+                    required />
+                <div class="error" data-for="confirm"></div>
+            </div>
 
-        <div>
-            <label for="birthday">Fecha de nacimiento</label>
-            <input id="birthday" name="birthday" type="date" required />
-            <div class="error" data-for="birthday"></div>
-        </div>
+            <div class="input-group">
+                <label for="phone">Teléfono</label>
+                <input id="phone" name="phone" type="tel" class="input-field" placeholder="+34 600 123 456" />
+                <div class="error" data-for="phone"></div>
+            </div>
 
-        <div>
-            <button type="submit">Registrar</button>
-        </div>
+            <div class="input-group">
+                <label for="birthday">Nacimiento</label>
+                <input id="birthday" name="birthday" type="date" class="input-field" required />
+                <div class="error" data-for="birthday"></div>
+            </div>
 
-        <div id="message" role="status"></div>
-    </form>
+            <button type="submit" class="submit-btn">Crear Superusuario</button>
+
+            <div id="message" role="status"></div>
+
+            <div class="back-link">
+                <a href="index.html">← Volver</a>
+            </div>
+        </form>
+    </div>
 
     <script>
         const form = document.getElementById('registerForm');
         const message = document.getElementById('message');
+        const submitBtn = form.querySelector('button[type="submit"]');
 
         function setError(fieldName, text) {
-            const el = document.querySelector('.error[data-for="' + fieldName + '"]');
-            if (el) el.textContent = text || '';
+            const el = document.querySelector(`.error[data-for="${fieldName}"]`);
+            if (el) {
+                el.textContent = text || '';
+                el.classList.toggle('show', !!text);
+            }
         }
 
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+            document.querySelectorAll('.error').forEach(e => {
+                e.textContent = '';
+                e.classList.remove('show');
+            });
             message.textContent = '';
-            message.className = '';
+            message.classList.remove('show', 'success', 'error');
         }
 
-        // Función para obtener access token de localStorage
-        function getAccessToken() {
-            return localStorage.getItem('access_token') || null;
-            return localStorage.getItem('refresh_token') || null;
-        }
+        // Validación en tiempo real
+        form.name.addEventListener('blur', (e) => {
+            if (!e.target.value.trim()) setError('name', 'El nombre es obligatorio.');
+            else setError('name');
+        });
 
-        // Función para enviar peticiones con JWT automáticamente
-        async function fetchWithAuth(url, options = {}) {
-            const headers = options.headers || {};
-            const token = getAccessToken();
-            if (token) {
-                headers['Authorization'] = 'Bearer ' + token;
-            }
-            options.headers = headers;
-            return fetch(url, options);
-        }
+        form.email.addEventListener('blur', (e) => {
+            const email = e.target.value.trim();
+            if (!email) setError('email', 'El correo es obligatorio.');
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) setError('email', 'Correo inválido.');
+            else setError('email');
+        });
+
+        form.password.addEventListener('blur', (e) => {
+            const password = e.target.value;
+            if (!password) setError('password', 'La contraseña es obligatoria.');
+            else if (password.length < 8) setError('password', 'Mínimo 8 caracteres.');
+            else setError('password');
+        });
+
+        form.confirm.addEventListener('blur', (e) => {
+            const confirm = e.target.value;
+            const password = form.password.value;
+            if (!confirm) setError('confirm', 'Confirma la contraseña.');
+            else if (password && confirm !== password) setError('confirm', 'Las contraseñas no coinciden.');
+            else setError('confirm');
+        });
+
+        form.phone.addEventListener('blur', (e) => {
+            const phone = e.target.value.trim();
+            if (phone && !/^[0-9+\-\s()]{6,20}$/.test(phone)) setError('phone', 'Teléfono inválido.');
+            else setError('phone');
+        });
+
+        form.birthday.addEventListener('blur', (e) => {
+            if (!e.target.value) setError('birthday', 'La fecha es obligatoria.');
+            else setError('birthday');
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             clearErrors();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creando superusuario...';
 
             const data = {
                 name: form.name.value.trim(),
@@ -328,17 +417,18 @@
             if (!data.name) { setError('name', 'El nombre es obligatorio.'); valid = false; }
             if (!data.email) { setError('email', 'El correo es obligatorio.'); valid = false; }
             else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { setError('email', 'Correo inválido.'); valid = false; }
-
             if (!data.password) { setError('password', 'La contraseña es obligatoria.'); valid = false; }
-            else if (data.password.length < 8) { setError('password', 'La contraseña debe tener al menos 8 caracteres.'); valid = false; }
-
-            if (!data.confirm) { setError('confirm', 'Confirme la contraseña.'); valid = false; }
+            else if (data.password.length < 8) { setError('password', 'Mínimo 8 caracteres.'); valid = false; }
+            if (!data.confirm) { setError('confirm', 'Confirma la contraseña.'); valid = false; }
             else if (data.password !== data.confirm) { setError('confirm', 'Las contraseñas no coinciden.'); valid = false; }
-
-            if (!data.birthday) { setError('birthday', 'La fecha de nacimiento es obligatoria.'); valid = false; }
+            if (!data.birthday) { setError('birthday', 'La fecha es obligatoria.'); valid = false; }
             if (data.phone && !/^[0-9+\-\s()]{6,20}$/.test(data.phone)) { setError('phone', 'Teléfono inválido.'); valid = false; }
 
-            if (!valid) return;
+            if (!valid) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Crear Superusuario';
+                return;
+            }
 
             const payload = {
                 name: data.name,
@@ -351,46 +441,34 @@
             try {
                 const res = await fetch('/api/users/superusers/create', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+                    },
                     body: JSON.stringify(payload)
                 });
 
                 const body = await res.json().catch(() => ({}));
 
                 if (res.ok) {
-                    // Guardar solo el access token
-                    localStorage.setItem('access_token', body.data.access);
-                    localStorage.setItem('refresh_token', body.data.refresh);
-
-                    message.textContent = 'Registro exitoso.';
-                    message.className = 'success';
+                    message.textContent = '¡Superusuario creado exitosamente!';
+                    message.className = 'show success';
                     form.reset();
-                    window.location.href = '/index.html';
+                    setTimeout(() => window.location.reload(), 1500);
                 } else {
-                    message.textContent = body.error || 'Error en el registro.';
-                    message.className = 'error';
+                    message.textContent = body.error || body.detail || 'Error al crear superusuario.';
+                    message.className = 'show error';
                 }
             } catch (err) {
                 console.error(err);
-                message.textContent = 'No se pudo conectar al servidor.';
-                message.className = 'error';
+                message.textContent = 'Error de conexión al servidor.';
+                message.className = 'show error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Crear Superusuario';
             }
         });
-
-        // Ejemplo: usar fetchWithAuth para futuras peticiones protegidas
-        async function getProfile() {
-            const res = await fetchWithAuth('/api/users/profile');
-            if (res.ok) {
-                const profile = await res.json();
-                console.log('Perfil usuario:', profile);
-            } else {
-                console.warn('No autorizado o token expirado');
-            }
-        }
-
     </script>
-
-
 </body>
 
 </html>

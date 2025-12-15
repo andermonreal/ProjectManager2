@@ -2,151 +2,474 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Panel</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>🔐 Admin Panel - DevOps</title>
     <style>
+        :root {
+            --bg-dark: #0a0e1a;
+            --bg-card: rgba(15, 23, 42, 0.95);
+            --accent-cyber: #00f5ff;
+            --accent-danger: #ff0080;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(0, 245, 255, 0.3);
+            --radius: 16px;
+            --shadow-main: 0 25px 60px rgba(0, 0, 0, 0.8);
+            --shadow-neon: 0 0 30px rgba(0, 245, 255, 0.3);
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: #e5e7eb;
-            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 245, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0e1a 0%, #020617 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 24px;
+            position: relative;
+            overflow-x: hidden;
         }
 
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 0, 128, 0.06) 0%, transparent 50%);
+            animation: matrix 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes matrix {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        /* HEADER TERMINAL CON BOTÓN */
         header {
-            background: #020617;
-            padding: 20px;
             text-align: center;
-            border-bottom: 2px solid #1e293b;
+            padding: 32px 24px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            margin-bottom: 28px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            box-shadow: var(--shadow-neon);
+            position: relative;
         }
 
-        h1 {
-            color: #38bdf8;
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent-cyber), #00ff88, var(--accent-danger));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin: 0;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            animation: glitch 4s infinite;
         }
 
+        @keyframes glitch {
+
+            0%,
+            100% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-1px, 1px);
+            }
+
+            40% {
+                transform: translate(-1px, -1px);
+            }
+
+            60% {
+                transform: translate(1px, 1px);
+            }
+
+            80% {
+                transform: translate(1px, -1px);
+            }
+        }
+
+        /* BOTÓN VUELTA */
+        .back-btn {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.2), rgba(0, 245, 255, 0.15));
+            color: var(--accent-cyber);
+            border: 2px solid rgba(0, 245, 255, 0.4);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition);
+            backdrop-filter: blur(15px);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 6px 20px rgba(0, 245, 255, 0.2);
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.3), rgba(0, 245, 255, 0.25));
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 245, 255, 0.4);
+            text-shadow: 0 0 12px rgba(0, 245, 255, 0.6);
+        }
+
+        /* UNA COLUMNA - ANCHO COMPLETO */
         .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
         }
 
+        /* TARJETAS TERMINAL */
         .card {
-            background: #020617;
-            border: 1px solid #1e293b;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
+            background: var(--bg-card);
+            backdrop-filter: blur(25px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(0, 245, 255, 0.15);
+            box-shadow: var(--shadow-main);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+            min-height: 420px;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyber), #00ff88, var(--accent-danger));
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 245, 255, 0.4);
+            border-color: rgba(0, 245, 255, 0.4);
         }
 
         .card h2 {
-            color: #22d3ee;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--accent-cyber);
+            text-shadow: 0 0 12px rgba(0, 245, 255, 0.5);
+            flex-shrink: 0;
         }
 
-        input,
-        select,
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border-radius: 4px;
-            border: none;
-            font-size: 14px;
+        /* CONTROLES */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-shrink: 0;
         }
 
         input,
         select {
-            background: #020617;
-            color: #e5e7eb;
-            border: 1px solid #334155;
+            padding: 16px 20px;
+            background: rgba(17, 24, 39, 0.85);
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: var(--font-mono);
+            transition: all var(--transition);
+            backdrop-filter: blur(15px);
         }
 
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-cyber);
+            box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.2);
+            background: rgba(17, 24, 39, 0.98);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* BOTONES TERMINAL */
         button {
-            background: #0284c7;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--accent-cyber), #00d4ff);
             color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
             cursor: pointer;
+            transition: all var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 245, 255, 0.5);
         }
 
         button:disabled {
-            background: #334155;
+            opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
 
+        /* OUTPUTS OPTIMIZADOS PARA LOGS LARGOS */
         pre {
-            background: #020617;
-            border: 1px solid #334155;
-            padding: 15px;
-            border-radius: 6px;
+            flex: 1;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            overflow-y: auto;
+            overflow-x: auto;
             white-space: pre-wrap;
+            word-break: break-all;
+            color: var(--success);
+            backdrop-filter: blur(12px);
+            margin-top: auto;
+            position: relative;
+            min-height: 200px;
+        }
+
+        pre::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        pre::-webkit-scrollbar-track {
+            background: rgba(17, 24, 39, 0.6);
+            border-radius: 6px;
+        }
+
+        pre::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--accent-cyber), #00d4ff);
+            border-radius: 6px;
+        }
+
+        pre::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(#00ff88, var(--accent-cyber));
+        }
+
+        /* ESTADOS ESPECIALES */
+        .success {
+            border-color: var(--success) !important;
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.5) !important;
+            color: var(--success) !important;
         }
 
         .error {
-            color: #f87171;
+            border-color: var(--accent-danger) !important;
+            box-shadow: 0 0 25px rgba(255, 0, 128, 0.5) !important;
+            color: var(--accent-danger) !important;
         }
 
-        .success {
-            color: #4ade80;
+        .auth-success {
+            background: rgba(0, 255, 136, 0.15) !important;
+            border-color: var(--success) !important;
         }
 
-        .info {
-            color: #38bdf8;
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .container {
+                gap: 20px;
+            }
+
+            .card {
+                padding: 24px;
+                min-height: 380px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            pre {
+                font-size: 0.8rem;
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 24px 16px;
+                margin-bottom: 20px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            .card {
+                padding: 20px;
+                min-height: 340px;
+            }
+
+            input,
+            select {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+            }
+
+            pre {
+                font-size: 0.75rem;
+                padding: 14px;
+                min-height: 160px;
+            }
+
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 
 <body>
-
     <header>
-        <h1>🔐 Admin Panel</h1>
+        <div class="header-content">
+            <h1>🔐 Admin Panel</h1>
+            <a href="index.html" class="back-btn">
+                ← Volver al Dashboard
+            </a>
+        </div>
     </header>
 
     <div class="container">
-
+        <!-- TOKEN AUTH - BLOQUE 1 -->
         <div class="card">
-            <h2>🔑 Autenticación</h2>
-            <input id="token" placeholder="Pega aquí el JWT access token">
-            <button onclick="validateJWT()">Validar Token</button>
-            <pre id="authStatus"></pre>
+            <h2>🔑 Autenticación JWT</h2>
+            <div class="control-group">
+                <input id="token" placeholder="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..." />
+                <button onclick="validateJWT()">🔍 Validar Token</button>
+            </div>
+            <pre id="authStatus">Introduce un JWT access_token para desbloquear funciones...</pre>
         </div>
 
+        <!-- DIAGNOSTICS - BLOQUE 2 -->
         <div class="card">
-            <h2>🖥️ System Diagnostics</h2>
-            <select id="commandType">
-                <option value="disk_usage">Uso de disco</option>
-                <option value="memory">Memoria</option>
-                <option value="processes">Procesos</option>
-                <option value="network">Red</option>
-                <option value="logs">Logs</option>
-            </select>
-            <input id="logFile" placeholder="/app/logs/projectManager.json.log">
-            <button id="diagBtn" onclick="runDiagnostics()" disabled>Ejecutar</button>
-            <pre id="diagnosticsOutput"></pre>
+            <h2>🖥️ Diagnósticos Sistema</h2>
+            <div class="control-group">
+                <select id="commandType">
+                    <option value="disk_usage">💾 Uso de Disco</option>
+                    <option value="memory">🧠 Memoria RAM</option>
+                    <option value="processes">⚙️ Procesos Activos</option>
+                    <option value="network">🌐 Interfaces Red</option>
+                    <option value="logs">📋 Últimos Logs</option>
+                </select>
+                <input id="logFile" placeholder="/app/logs/projectManager.log" />
+                <button id="diagBtn" onclick="runDiagnostics()" disabled>🚀 Ejecutar Diagnóstico</button>
+            </div>
+            <pre id="diagnosticsOutput">Selecciona un diagnóstico y valida tu token...</pre>
         </div>
 
+        <!-- BACKUP - BLOQUE 3 -->
         <div class="card">
-            <h2>💾 Backup Database</h2>
-            <input id="backupPath" placeholder="/tmp/backup.sql">
-            <select id="compression">
-                <option value="none">Sin compresión</option>
-                <option value="gzip">gzip</option>
-                <option value="bzip2">bzip2</option>
-            </select>
-            <button id="backupBtn" onclick="runBackup()" disabled>Crear Backup</button>
-            <pre id="backupOutput"></pre>
+            <h2>💾 Backup Base de Datos</h2>
+            <div class="control-group">
+                <input id="backupPath" placeholder="/tmp/backup-$(date +%Y%m%d).sql" />
+                <select id="compression">
+                    <option value="none">Sin compresión</option>
+                    <option value="gzip">gzip (rápido)</option>
+                    <option value="bzip2">bzip2 (alta compresión)</option>
+                </select>
+                <button id="backupBtn" onclick="runBackup()" disabled>💾 Generar Backup</button>
+            </div>
+            <pre id="backupOutput">Valida tu token y configura el backup...</pre>
         </div>
-
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('access_token');
             if (saved) {
-                const input = document.getElementById('token');
-                if (input) {
-                    input.value = saved;
-                    // validar automáticamente si existe la función
-                    if (typeof validateJWT === 'function') validateJWT();
-                }
+                document.getElementById('token').value = saved;
+                if (typeof validateJWT === 'function') validateJWT();
             }
         });
 
@@ -170,19 +493,18 @@
                 const now = Math.floor(Date.now() / 1000);
 
                 if (payload.exp < now) throw "Token expirado";
-                if (!payload.is_superuser) throw "No eres superusuario";
+                if (!payload.is_superuser) throw "Requiere superuser";
 
                 validToken = token;
-                status.textContent =
-                    `✅ Token válido\nUsuario: ${payload.email}\nSuperuser: ${payload.is_superuser}`;
-                status.className = "success";
+                status.textContent = `✅ TOKEN VÁLIDO\nUsuario: ${payload.email}\nSuperuser: ${payload.is_superuser}\nExpira: ${new Date(payload.exp * 1000).toLocaleString()}\n\n🔓 Panel desbloqueado`;
+                status.className = "success auth-success";
 
                 document.getElementById("diagBtn").disabled = false;
                 document.getElementById("backupBtn").disabled = false;
 
             } catch (e) {
                 validToken = null;
-                status.textContent = "❌ " + e;
+                status.textContent = `❌ ERROR DE AUTENTICACIÓN\n${e}`;
                 status.className = "error";
                 document.getElementById("diagBtn").disabled = true;
                 document.getElementById("backupBtn").disabled = true;
@@ -198,43 +520,58 @@
 
         async function runDiagnostics() {
             const out = document.getElementById("diagnosticsOutput");
-            out.textContent = "Ejecutando...";
+            out.textContent = "🔄 Ejecutando diagnóstico del sistema...\n\n⏳ Por favor espera...";
+            out.className = "";
 
             const payload = {
                 command_type: document.getElementById("commandType").value,
                 log_file: document.getElementById("logFile").value
             };
 
-            const res = await fetch(`${API_BASE}/diagnostics`, {
-                method: "POST",
-                headers: authHeaders(),
-                body: JSON.stringify(payload)
-            });
+            try {
+                const res = await fetch(`${API_BASE}/diagnostics`, {
+                    method: "POST",
+                    headers: authHeaders(),
+                    body: JSON.stringify(payload)
+                });
 
-            const data = await res.json();
-            out.textContent = JSON.stringify(data, null, 2);
+                const data = await res.json();
+                out.textContent = JSON.stringify(data, null, 2);
+                if (data.success) out.className = "success";
+                else out.className = "error";
+            } catch (e) {
+                out.textContent = `❌ Error de conexión:\n${e.message}`;
+                out.className = "error";
+            }
         }
 
         async function runBackup() {
             const out = document.getElementById("backupOutput");
-            out.textContent = "Creando backup...";
+            out.textContent = "💾 Iniciando backup de base de datos...\n\n⏳ Generando dump PostgreSQL...";
+            out.className = "";
 
             const payload = {
                 backup_path: document.getElementById("backupPath").value,
                 compression: document.getElementById("compression").value
             };
 
-            const res = await fetch(`${API_BASE}/backup`, {
-                method: "POST",
-                headers: authHeaders(),
-                body: JSON.stringify(payload)
-            });
+            try {
+                const res = await fetch(`${API_BASE}/backup`, {
+                    method: "POST",
+                    headers: authHeaders(),
+                    body: JSON.stringify(payload)
+                });
 
-            const data = await res.json();
-            out.textContent = JSON.stringify(data, null, 2);
+                const data = await res.json();
+                out.textContent = JSON.stringify(data, null, 2);
+                if (data.success) out.className = "success";
+                else out.className = "error";
+            } catch (e) {
+                out.textContent = `❌ Error en backup:\n${e.message}`;
+                out.className = "error";
+            }
         }
     </script>
-
 </body>
 
 </html>

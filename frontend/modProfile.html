@@ -6,104 +6,522 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Editar perfil</title>
     <style>
+        :root {
+            --bg-main: #020617;
+            --bg-elevated: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.98);
+            --accent: #6366f1;
+            --accent-soft: rgba(99, 102, 241, 0.16);
+            --accent-strong: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-soft: rgba(148, 163, 184, 0.35);
+            --border-focus: rgba(99, 102, 241, 0.6);
+            --radius-lg: 16px;
+            /* REDUCIDO */
+            --radius-md: 12px;
+            /* REDUCIDO */
+            --radius-pill: 999px;
+            --shadow-soft: 0 15px 40px rgba(15, 23, 42, 0.95);
+            /* MENOS sombra */
+            --shadow-glow: 0 0 0 1px rgba(99, 102, 241, 0.5);
+            --transition-fast: 0.18s ease-out;
+            --transition-med: 0.25s ease-out;
+            --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-            color: #333;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* SIN SCROLL */
+
+        body {
+            font-family: var(--font-main);
+            background: radial-gradient(circle at 20% 80%, #1e1b4b 0%, #020617 50%, #000 100%);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            /* REDUCIDO */
+        }
+
+        /* SHELL MÁS COMPACTO */
+        .edit-shell {
+            width: 100%;
+            max-width: 800px;
+            /* REDUCIDO */
+            height: 100vh;
+            /* OCUPA TODO */
+            max-height: 100vh;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.97), rgba(17, 24, 39, 0.98));
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.06), transparent 50%);
+            pointer-events: none;
+        }
+
+        /* HEADER COMPACTO */
+        .edit-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 12px;
+            /* REDUCIDO */
+            padding: 16px 20px 8px;
+            /* REDUCIDO */
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-back {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            color: var(--text-muted);
+            padding: 8px 12px;
+            /* REDUCIDO */
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            /* REDUCIDO */
+            cursor: pointer;
+            transition: all var(--transition-med);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .profile-back:hover {
+            background: rgba(15, 23, 42, 1);
+            border-color: var(--border-focus);
+            color: var(--text-main);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.9);
+        }
+
+        .edit-title-group h1 {
+            font-size: 1.6rem;
+            /* REDUCIDO */
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            /* REDUCIDO */
+            margin-bottom: 2px;
+        }
+
+        .edit-title-group h1::before {
+            content: "";
+            width: 8px;
+            /* REDUCIDO */
+            height: 20px;
+            /* REDUCIDO */
+            border-radius: var(--radius-pill);
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+        }
+
+        .edit-title-group p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            /* REDUCIDO */
+            margin: 0;
+        }
+
+        /* MAIN CON SCROLL INTERNO SOLO SI ES NECESARIO */
+        .edit-main {
+            flex: 1;
+            padding: 12px 20px 20px;
+            /* REDUCIDO */
+            position: relative;
+            z-index: 1;
+            overflow: auto;
+        }
+
+        .edit-form {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            /* REDUCIDO */
+            border: 1px solid rgba(55, 65, 81, 0.95);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.92);
+        }
+
+        /* SECCIONES MÁS COMPACTAS */
+        .form-section {
+            margin-bottom: 20px;
+            /* REDUCIDO */
+        }
+
+        .form-section h3 {
+            font-size: 1rem;
+            /* REDUCIDO */
+            margin-bottom: 12px;
+            /* REDUCIDO */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            /* REDUCIDO */
+            color: var(--text-main);
+        }
+
+        .section-icon {
+            font-size: 1.15rem;
+        }
+
+        /* REDUCIDO */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            /* REDUCIDO */
+            gap: 12px;
+            /* REDUCIDO */
+        }
+
+        /* INPUTS MÁS COMPACTOS */
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            /* REDUCIDO */
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            /* REDUCIDO */
+            letter-spacing: 0.02em;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            /* REDUCIDO */
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid rgba(75, 85, 99, 0.8);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            /* REDUCIDO */
+            transition: all var(--transition-fast);
+            backdrop-filter: blur(12px);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: var(--shadow-glow), 0 0 0 3px rgba(99, 102, 241, 0.08);
+            background: rgba(17, 24, 39, 1);
+            transform: translateY(-1px);
+        }
+
+        /* UPLOAD COMPACTO */
+        .image-upload-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .avatar-upload-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            gap: 12px;
         }
 
-        h1 {
-            margin-bottom: 20px;
+        .avatar-upload-preview {
+            width: 100px;
+            /* REDUCIDO */
+            height: 100px;
+            /* REDUCIDO */
+            border-radius: 999px;
+            border: 3px solid rgba(99, 102, 241, 0.4);
+            padding: 3px;
+            background: radial-gradient(circle, var(--accent-soft), rgba(15, 23, 42, 1));
+            box-shadow: 0 12px 25px rgba(15, 23, 42, 0.9);
+            overflow: hidden;
+            transition: all var(--transition-med);
         }
 
-        form {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            max-width: 600px;
+        .avatar-upload-preview:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
 
-        form div {
-            margin-bottom: 15px;
+        .avatar-fallback {
+            font-size: 1.9rem;
+            /* REDUCIDO */
+            font-weight: 700;
         }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
+        .upload-label {
             cursor: pointer;
-            background: #3b82f6;
+            padding: 10px 18px;
+            /* REDUCIDO */
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
             color: white;
+            border-radius: var(--radius-pill);
+            font-weight: 500;
+            font-size: 0.85rem;
+            /* REDUCIDO */
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all var(--transition-fast);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+            border: 1px solid rgba(129, 140, 248, 0.3);
         }
 
-        button:hover {
-            background: #2563eb;
+        .upload-label:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(79, 70, 229, 0.6);
         }
 
-        #previewIcon img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-top: 10px;
+        .upload-hint {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            /* REDUCIDO */
         }
 
-        #updateMessage {
-            margin-top: 15px;
+        .upload-hint p {
+            margin: 0 0 2px 0;
+        }
+
+        /* REDUCIDO */
+
+        .password-hint {
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(75, 85, 99, 0.6);
+            border-radius: var(--radius-md);
+            padding: 8px 12px;
+            /* REDUCIDO */
+            font-size: 0.78rem;
+            /* REDUCIDO */
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* BOTONES COMPACTOS */
+        .btn {
+            border: none;
+            padding: 10px 20px;
+            /* REDUCIDO */
+            border-radius: var(--radius-pill);
+            font-size: 0.9rem;
+            /* REDUCIDO */
             font-weight: 600;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            border: 1px solid rgba(129, 140, 248, 0.4);
+            transition: all var(--transition-med);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-large {
+            padding: 12px 24px;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(79, 70, 229, 0.6);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+            /* REDUCIDO */
+            padding-top: 16px;
+            /* REDUCIDO */
+            border-top: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        /* MENSAJES COMPACTOS */
+        .message-container {
+            margin-top: 12px;
+            /* REDUCIDO */
+            padding: 12px 16px;
+            /* REDUCIDO */
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all var(--transition-med);
+            font-size: 0.9rem;
+        }
+
+        .message-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.6);
+            color: #bbf7d0;
+        }
+
+        .message-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.6);
+            color: #fecaca;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+            }
+
+            .edit-shell {
+                max-width: 100%;
+                border-radius: 12px;
+            }
+
+            .edit-header {
+                padding: 14px 16px 6px;
+                gap: 10px;
+            }
+
+            .edit-main {
+                padding: 8px 16px 16px;
+            }
+
+            .edit-form {
+                padding: 16px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .edit-title-group h1 {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>Editar perfil</h1>
-    <form id="updateForm">
-        <div>
-            <label for="name">Nombre:</label>
-            <input id="name" name="name" type="text">
-        </div>
-        <div>
-            <label for="phone">Teléfono:</label>
-            <input id="phone" name="phone" type="tel">
-        </div>
-        <div>
-            <label for="icon">Icono (subir foto):</label>
-            <input id="icon" name="icon" type="file" accept="image/*">
-            <div id="previewIcon"></div>
-        </div>
-        <div>
-            <label for="current_password">Contraseña actual:</label>
-            <input id="current_password" name="current_password" type="password">
-        </div>
-        <div>
-            <label for="new_password">Nueva contraseña:</label>
-            <input id="new_password" name="new_password" type="password">
-        </div>
-        <div>
-            <label for="confirm_password">Repetir nueva contraseña:</label>
-            <input id="confirm_password" name="confirm_password" type="password">
-        </div>
-        <button type="submit">Actualizar perfil</button>
-    </form>
-    <button onclick="window.location.href='profile.html'">Volver</button>
-    <div id="updateMessage"></div>
+    <!-- HTML SIN CAMBIOS, solo el script necesita corrección -->
+    <div class="edit-shell">
+        <!-- Tu HTML actual exactamente igual -->
+        <header class="edit-header">
+            <button class="profile-back" onclick="window.location.href='profile.html'">
+                ⬅ Volver al perfil
+            </button>
+            <div class="edit-title-group">
+                <h1>Editar perfil</h1>
+                <p>Actualiza tu información personal y foto de perfil.</p>
+            </div>
+        </header>
 
+        <main class="edit-main">
+            <form id="updateForm" class="edit-form">
+                <!-- Todo tu contenido de formulario igual -->
+                <section class="form-section">
+                    <h3><span class="section-icon">👤</span> Información básica</h3>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="name">Nombre completo</label>
+                            <input id="name" name="name" type="text" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="phone">Teléfono</label>
+                            <input id="phone" name="phone" type="tel">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><span class="section-icon">🖼️</span> Foto de perfil</h3>
+                    <div class="image-upload-group">
+                        <div class="avatar-upload-wrapper">
+                            <div class="avatar-upload-preview">
+                                <div class="avatar-fallback" id="avatarFallback">U</div>
+                                <img id="avatarPreview" alt="Vista previa" style="display:none;">
+                            </div>
+                            <label for="icon" class="upload-label">
+                                <span class="upload-text">Cambiar foto</span>
+                                <span class="upload-icon">📷</span>
+                            </label>
+                            <input id="icon" name="icon" type="file" accept="image/*" hidden>
+                        </div>
+                        <div class="upload-hint">
+                            <p>Formatos JPG, PNG (máx. 2MB)</p>
+                            <p>Se recortará automáticamente</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section" id="passwordSection">
+                    <h3><span class="section-icon">🔒</span> Cambiar contraseña</h3>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="current_password">Contraseña actual</label>
+                            <input id="current_password" name="current_password" type="password">
+                        </div>
+                        <div class="input-group">
+                            <label for="new_password">Nueva contraseña</label>
+                            <input id="new_password" name="new_password" type="password">
+                        </div>
+                        <div class="input-group">
+                            <label for="confirm_password">Confirmar nueva</label>
+                            <input id="confirm_password" name="confirm_password" type="password">
+                        </div>
+                    </div>
+                    <div class="password-hint">
+                        <span>Deja en blanco si no quieres cambiar</span>
+                    </div>
+                </section>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-large">Actualizar perfil</button>
+                </div>
+            </form>
+
+            <div id="updateMessage" class="message-container"></div>
+        </main>
+    </div>
+
+    <!-- SCRIPT CORREGIDO -->
     <script>
         const updateForm = document.getElementById('updateForm');
         const updateMessage = document.getElementById('updateMessage');
-        const previewIcon = document.getElementById('previewIcon');
+        const previewIcon = document.getElementById('avatarPreview');
+        const avatarFallback = document.getElementById('avatarFallback');
 
         function getAccessToken() { return localStorage.getItem('access_token'); }
 
@@ -117,12 +535,17 @@
         }
 
         // Vista previa de la imagen
-        updateForm.icon.addEventListener('change', async (e) => {
+        document.getElementById('icon').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
                 const base64 = await fileToBase64(file);
-                previewIcon.innerHTML = `<img src="${base64}" alt="preview">`;
-            } else previewIcon.innerHTML = '';
+                previewIcon.src = base64;
+                previewIcon.style.display = 'block';
+                avatarFallback.style.display = 'none';
+            } else {
+                previewIcon.style.display = 'none';
+                avatarFallback.style.display = 'flex';
+            }
         });
 
         // Cargar datos iniciales
@@ -130,11 +553,13 @@
             const token = getAccessToken();
             if (!token) return;
             try {
-                const res = await fetch('/api/users/profile', { headers: { 'Authorization': 'Bearer ' + token } });
+                const res = await fetch('/api/users/profile', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
                 if (res.ok) {
                     const u = (await res.json()).data;
-                    updateForm.name.value = u.name;
-                    updateForm.phone.value = u.phone;
+                    updateForm.name.value = u.name || '';
+                    updateForm.phone.value = u.phone || '';
                 }
             } catch (e) { console.error(e); }
         }
@@ -142,7 +567,11 @@
         updateForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const token = getAccessToken();
-            if (!token) { updateMessage.textContent = 'No autenticado.'; updateMessage.style.color = 'red'; return; }
+            if (!token) {
+                updateMessage.textContent = 'No autenticado.';
+                updateMessage.className = 'message-container show message-error';
+                return;
+            }
 
             const payload = {};
             const name = updateForm.name.value.trim();
@@ -158,13 +587,13 @@
 
             if (current_password || new_password || confirm_password) {
                 if (!current_password || !new_password || !confirm_password) {
-                    updateMessage.textContent = 'Debe rellenar todos los campos de contraseña.';
-                    updateMessage.style.color = 'red';
+                    updateMessage.textContent = 'Rellena todos los campos de contraseña.';
+                    updateMessage.className = 'message-container show message-error';
                     return;
                 }
                 if (new_password !== confirm_password) {
-                    updateMessage.textContent = 'Las contraseñas nuevas no coinciden.';
-                    updateMessage.style.color = 'red';
+                    updateMessage.textContent = 'Las contraseñas no coinciden.';
+                    updateMessage.className = 'message-container show message-error';
                     return;
                 }
                 payload.current_password = current_password;
@@ -172,8 +601,8 @@
             }
 
             if (Object.keys(payload).length === 0) {
-                updateMessage.textContent = 'Debe modificar al menos un campo.';
-                updateMessage.style.color = 'red';
+                updateMessage.textContent = 'Modifica al menos un campo.';
+                updateMessage.className = 'message-container show message-error';
                 return;
             }
 
@@ -189,20 +618,21 @@
                 const data = await res.json();
                 if (res.ok) {
                     updateMessage.textContent = 'Perfil actualizado correctamente.';
-                    updateMessage.style.color = 'green';
+                    updateMessage.className = 'message-container show message-success';
                     updateForm.current_password.value = '';
                     updateForm.new_password.value = '';
                     updateForm.confirm_password.value = '';
                     updateForm.icon.value = '';
-                    previewIcon.innerHTML = '';
+                    previewIcon.style.display = 'none';
+                    avatarFallback.style.display = 'flex';
                 } else {
-                    updateMessage.textContent = JSON.stringify(data);
-                    updateMessage.style.color = 'red';
+                    updateMessage.textContent = data.detail || 'Error al actualizar.';
+                    updateMessage.className = 'message-container show message-error';
                 }
             } catch (e) {
                 console.error(e);
                 updateMessage.textContent = 'Error de conexión.';
-                updateMessage.style.color = 'red';
+                updateMessage.className = 'message-container show message-error';
             }
         });
 

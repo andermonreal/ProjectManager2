@@ -2,136 +2,477 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Registro de usuario</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Registro</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 16px;
+        :root {
+            --bg-main: #020617;
+            --bg-glass: rgba(15, 23, 42, 0.85);
+            --bg-glass-hover: rgba(17, 24, 39, 0.95);
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-glass: rgba(148, 163, 184, 0.2);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --shadow-main: 0 25px 60px rgba(15, 23, 42, 0.95);
+            --shadow-glow: 0 0 0 1px rgba(99, 102, 241, 0.3);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
         }
 
-        form {
-            display: grid;
-            gap: 10px;
-        }
-
-        label {
-            font-weight: 600;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="tel"],
-        input[type="date"] {
-            padding: 8px;
-            font-size: 14px;
-            width: 100%;
+        * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background:
+                radial-gradient(circle at 20% 80%, rgba(30, 27, 75, 0.6) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #020617 0%, #0a0e1a 100%);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+
+            66% {
+                transform: translateY(10px) rotate(240deg);
+            }
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .register-container {
+            width: 100%;
+            max-width: 580px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--shadow-main);
+            padding: 48px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #10b981, var(--accent));
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        /* HEADER */
+        .register-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .register-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-main), #f8fafc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .register-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #10b981);
+            border-radius: 2px;
+        }
+
+        .register-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* FORM EN DOS COLUMNAS */
+        #registerForm {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 20px;
+        }
+
+        /* CAMPOS DE UNA COLUMNA (contraseñas) */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(17, 24, 39, 0.8);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow), 0 0 0 4px var(--accent-glow);
+            background: rgba(17, 24, 39, 0.95);
+            transform: translateY(-2px);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ERRORES */
         .error {
-            color: #b00020;
-            font-size: 13px;
+            min-height: 20px;
+            font-size: 0.8rem;
+            color: var(--danger);
+            margin-top: 6px;
+            padding: 4px 0;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: all 0.2s ease;
+        }
+
+        .error.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* BOTÓN */
+        .submit-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+            color: white;
+            border: none;
+            padding: 20px 32px;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* MENSAJE */
+        #message {
+            grid-column: 1 / -1;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-weight: 500;
+            margin-top: 20px;
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #message.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
         .success {
-            color: green;
-            font-size: 14px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            color: #bbf7d0;
+            backdrop-filter: blur(10px);
         }
 
-        button {
-            padding: 10px 14px;
-            font-size: 15px;
-            cursor: pointer;
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid rgba(239, 68, 68, 0.5);
+            color: #fecaca;
+            backdrop-filter: blur(10px);
+        }
+
+        /* LINK LOGIN */
+        .login-link {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        .login-link p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .login-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition);
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            #registerForm {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            body {
+                padding: 16px;
+            }
+
+            .register-container {
+                padding: 36px 28px;
+                margin: 8px;
+                border-radius: 16px;
+            }
+
+            .register-header h1 {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 32px 24px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>Registro</h1>
-    <form id="registerForm" novalidate>
-        <div>
-            <label for="name">Nombre</label>
-            <input id="name" name="name" type="text" required />
-            <div class="error" data-for="name"></div>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Crear cuenta</h1>
+            <p>Únete en menos de 1 minuto</p>
         </div>
 
-        <div>
-            <label for="email">Correo electrónico</label>
-            <input id="email" name="email" type="email" required />
-            <div class="error" data-for="email"></div>
-        </div>
+        <form id="registerForm" novalidate>
+            <div class="input-group">
+                <label for="name">Nombre completo</label>
+                <input id="name" name="name" type="text" class="input-field" placeholder="Juan Pérez" required />
+                <div class="error" data-for="name"></div>
+            </div>
 
-        <div>
-            <label for="password">Contraseña</label>
-            <input id="password" name="password" type="password" required minlength="8" />
-            <div class="error" data-for="password"></div>
-        </div>
+            <div class="input-group">
+                <label for="email">Correo electrónico</label>
+                <input id="email" name="email" type="email" class="input-field" placeholder="tu@correo.com" required />
+                <div class="error" data-for="email"></div>
+            </div>
 
-        <div>
-            <label for="confirm">Confirmar contraseña</label>
-            <input id="confirm" name="confirm" type="password" required />
-            <div class="error" data-for="confirm"></div>
-        </div>
+            <div class="input-group full-width">
+                <label for="password">Contraseña</label>
+                <input id="password" name="password" type="password" class="input-field"
+                    placeholder="Mínimo 8 caracteres" required minlength="8" />
+                <div class="error" data-for="password"></div>
+            </div>
 
-        <div>
-            <label for="phone">Teléfono</label>
-            <input id="phone" name="phone" type="tel" pattern="^[0-9+\-\s()]{6,20}$" />
-            <div class="error" data-for="phone"></div>
-        </div>
+            <div class="input-group full-width">
+                <label for="confirm">Confirmar contraseña</label>
+                <input id="confirm" name="confirm" type="password" class="input-field"
+                    placeholder="Repite tu contraseña" required />
+                <div class="error" data-for="confirm"></div>
+            </div>
 
-        <div>
-            <label for="birthday">Fecha de nacimiento</label>
-            <input id="birthday" name="birthday" type="date" required />
-            <div class="error" data-for="birthday"></div>
-        </div>
+            <div class="input-group">
+                <label for="phone">Teléfono (opcional)</label>
+                <input id="phone" name="phone" type="tel" class="input-field" placeholder="+34 600 123 456"
+                    pattern="^[0-9+\-\s()]{6,20}$" />
+                <div class="error" data-for="phone"></div>
+            </div>
 
-        <div>
-            <button type="submit">Registrar</button>
-        </div>
+            <div class="input-group">
+                <label for="birthday">Fecha de nacimiento</label>
+                <input id="birthday" name="birthday" type="date" class="input-field" required />
+                <div class="error" data-for="birthday"></div>
+            </div>
 
-        <div id="message" role="status"></div>
-    </form>
+            <button type="submit" class="submit-btn">Crear cuenta</button>
+
+            <div id="message" role="status"></div>
+
+            <div class="login-link">
+                <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+            </div>
+        </form>
+    </div>
 
     <script>
         const form = document.getElementById('registerForm');
         const message = document.getElementById('message');
+        const submitBtn = form.querySelector('button[type="submit"]');
 
         function setError(fieldName, text) {
-            const el = document.querySelector('.error[data-for="' + fieldName + '"]');
-            if (el) el.textContent = text || '';
+            const el = document.querySelector(`.error[data-for="${fieldName}"]`);
+            if (el) {
+                el.textContent = text || '';
+                el.classList.toggle('show', !!text);
+            }
         }
 
         function clearErrors() {
-            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+            document.querySelectorAll('.error').forEach(e => {
+                e.textContent = '';
+                e.classList.remove('show');
+            });
             message.textContent = '';
-            message.className = '';
+            message.classList.remove('show', 'success', 'error');
         }
 
-        // Función para obtener access token de localStorage
-        function getAccessToken() {
-            return localStorage.getItem('access_token') || null;
-            return localStorage.getItem('refresh_token') || null;
-        }
-
-        // Función para enviar peticiones con JWT automáticamente
-        async function fetchWithAuth(url, options = {}) {
-            const headers = options.headers || {};
-            const token = getAccessToken();
-            if (token) {
-                headers['Authorization'] = 'Bearer ' + token;
+        // Validación en tiempo real
+        form.name.addEventListener('blur', (e) => {
+            if (!e.target.value.trim()) {
+                setError('name', 'El nombre es obligatorio.');
+            } else {
+                setError('name');
             }
-            options.headers = headers;
-            return fetch(url, options);
-        }
+        });
+
+        form.email.addEventListener('blur', (e) => {
+            const email = e.target.value.trim();
+            if (!email) {
+                setError('email', 'El correo es obligatorio.');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setError('email', 'Correo inválido.');
+            } else {
+                setError('email');
+            }
+        });
+
+        form.password.addEventListener('blur', (e) => {
+            const password = e.target.value;
+            if (!password) {
+                setError('password', 'La contraseña es obligatoria.');
+            } else if (password.length < 8) {
+                setError('password', 'Mínimo 8 caracteres.');
+            } else {
+                setError('password');
+            }
+        });
+
+        form.confirm.addEventListener('blur', (e) => {
+            const confirm = e.target.value;
+            const password = form.password.value;
+            if (!confirm) {
+                setError('confirm', 'Confirma la contraseña.');
+            } else if (password && confirm !== password) {
+                setError('confirm', 'Las contraseñas no coinciden.');
+            } else {
+                setError('confirm');
+            }
+        });
+
+        form.phone.addEventListener('blur', (e) => {
+            const phone = e.target.value.trim();
+            if (phone && !/^[0-9+\-\s()]{6,20}$/.test(phone)) {
+                setError('phone', 'Teléfono inválido.');
+            } else {
+                setError('phone');
+            }
+        });
+
+        form.birthday.addEventListener('blur', (e) => {
+            if (!e.target.value) {
+                setError('birthday', 'La fecha es obligatoria.');
+            } else {
+                setError('birthday');
+            }
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             clearErrors();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creando cuenta...';
 
             const data = {
                 name: form.name.value.trim(),
@@ -146,17 +487,18 @@
             if (!data.name) { setError('name', 'El nombre es obligatorio.'); valid = false; }
             if (!data.email) { setError('email', 'El correo es obligatorio.'); valid = false; }
             else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) { setError('email', 'Correo inválido.'); valid = false; }
-
             if (!data.password) { setError('password', 'La contraseña es obligatoria.'); valid = false; }
-            else if (data.password.length < 8) { setError('password', 'La contraseña debe tener al menos 8 caracteres.'); valid = false; }
-
-            if (!data.confirm) { setError('confirm', 'Confirme la contraseña.'); valid = false; }
+            else if (data.password.length < 8) { setError('password', 'Mínimo 8 caracteres.'); valid = false; }
+            if (!data.confirm) { setError('confirm', 'Confirma la contraseña.'); valid = false; }
             else if (data.password !== data.confirm) { setError('confirm', 'Las contraseñas no coinciden.'); valid = false; }
-
-            if (!data.birthday) { setError('birthday', 'La fecha de nacimiento es obligatoria.'); valid = false; }
+            if (!data.birthday) { setError('birthday', 'La fecha es obligatoria.'); valid = false; }
             if (data.phone && !/^[0-9+\-\s()]{6,20}$/.test(data.phone)) { setError('phone', 'Teléfono inválido.'); valid = false; }
 
-            if (!valid) return;
+            if (!valid) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Crear cuenta';
+                return;
+            }
 
             const payload = {
                 name: data.name,
@@ -176,39 +518,32 @@
                 const body = await res.json().catch(() => ({}));
 
                 if (res.ok) {
-                    // Guardar solo el access token
-                    localStorage.setItem('access_token', body.data.access);
-                    localStorage.setItem('refresh_token', body.data.refresh);
+                    message.textContent = '¡Cuenta creada exitosamente!';
+                    message.className = 'show success';
 
-                    message.textContent = 'Registro exitoso.';
-                    message.className = 'success';
-                    form.reset();
-                    window.location.href = '/index.html';
+                    if (body.data && body.data.access) {
+                        localStorage.setItem('access_token', body.data.access);
+                        localStorage.setItem('refresh_token', body.data.refresh || '');
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = '/index.html';
+                    }, 1000);
+
                 } else {
-                    message.textContent = body.error || 'Error en el registro.';
-                    message.className = 'error';
+                    message.textContent = body.error || body.detail || 'Error en el registro.';
+                    message.className = 'show error';
                 }
             } catch (err) {
                 console.error(err);
                 message.textContent = 'No se pudo conectar al servidor.';
-                message.className = 'error';
+                message.className = 'show error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Crear cuenta';
             }
         });
-
-        // Ejemplo: usar fetchWithAuth para futuras peticiones protegidas
-        async function getProfile() {
-            const res = await fetchWithAuth('/api/users/profile');
-            if (res.ok) {
-                const profile = await res.json();
-                console.log('Perfil usuario:', profile);
-            } else {
-                console.warn('No autorizado o token expirado');
-            }
-        }
-
     </script>
-
-
 </body>
 
 </html>

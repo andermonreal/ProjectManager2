@@ -7,90 +7,495 @@
     <title>Inicio</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 520px;
-            margin: 40px auto;
-            padding: 0 16px;
-            text-align: center;
+        :root {
+            --bg-color: #050816;
+            --bg-elevated: #0f172a;
+            --bg-elevated-soft: #111827;
+            --accent: #6366f1;
+            --accent-soft: rgba(99, 102, 241, 0.15);
+            --accent-strong: #4f46e5;
+            --danger: #ef4444;
+            --danger-soft: rgba(239, 68, 68, 0.15);
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-soft: rgba(148, 163, 184, 0.3);
+            --radius-lg: 14px;
+            --radius-md: 10px;
+            --radius-pill: 999px;
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+            --transition-fast: 0.18s ease-out;
+            --transition-med: 0.25s ease-out;
+            --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                "Segoe UI", sans-serif;
         }
 
-        h1,
-        h2 {
-            margin-bottom: 16px;
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: radial-gradient(circle at top left, #1d1b3f 0, #050816 40%, #020617 100%);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+
+        .app-shell {
+            width: 100%;
+            max-width: 1080px;
+            background: radial-gradient(circle at top, rgba(148, 163, 184, 0.08), transparent 55%),
+                linear-gradient(145deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.98));
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            box-shadow: var(--shadow-soft);
+            padding: 24px 26px 26px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* DECORACIÓN SUTIL */
+
+        .app-shell::before,
+        .app-shell::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .app-shell::before {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.35), transparent 70%);
+            top: -120px;
+            right: -60px;
+        }
+
+        .app-shell::after {
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 70%);
+            bottom: -130px;
+            left: -40px;
+        }
+
+        /* CABECERA */
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-title-group h1 {
+            font-size: 1.9rem;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-title-group h1::before {
+            content: "";
+            width: 10px;
+            height: 26px;
+            border-radius: 999px;
+            background: linear-gradient(to bottom, var(--accent), #22c55e);
+            box-shadow: 0 0 18px rgba(129, 140, 248, 0.7);
+        }
+
+        .app-title-group p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* NAV / BOTONES SUPERIORES */
+
+        .nav-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            font-size: 16px;
+            position: relative;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
+            color: var(--text-main);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition:
+                background var(--transition-med),
+                color var(--transition-med),
+                border-color var(--transition-med),
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast);
+            backdrop-filter: blur(10px);
         }
 
-        .primary {
-            background: #1976d2;
-            color: #fff;
-            border: none;
+        .btn::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            border: 1px solid transparent;
+            transition: border-color var(--transition-fast);
         }
 
-        .secondary {
-            background: #e0e0e0;
-            color: #000;
-            border: none;
+        .btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            border-color: rgba(129, 140, 248, 0.6);
+            box-shadow: 0 12px 26px rgba(79, 70, 229, 0.45);
         }
 
-        .danger {
-            background: #d32f2f;
-            color: #fff;
-            border: none;
+        .btn.secondary {
+            background: rgba(15, 23, 42, 0.9);
         }
 
-        input,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 6px 0;
-            font-size: 14px;
+        .btn.danger {
+            background: linear-gradient(135deg, #f97373, #ef4444);
+            border-color: rgba(248, 113, 113, 0.7);
+            box-shadow: 0 10px 22px rgba(239, 68, 68, 0.45);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+        }
+
+        .btn.primary:hover {
+            box-shadow: 0 16px 36px rgba(79, 70, 229, 0.7);
+        }
+
+        .btn.danger:hover {
+            box-shadow: 0 16px 36px rgba(239, 68, 68, 0.68);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .btn:hover::after {
+            border-color: rgba(148, 163, 184, 0.65);
+        }
+
+        /* ESTADO / MENSAJE */
+
+        #status {
+            margin-top: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* CONTENIDO PRINCIPAL / LAYOUT */
+
+        .app-main {
+            margin-top: 18px;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 2.1fr);
+        }
+
+        /* SECCIÓN PROYECTOS */
+
+        #projectsSection {
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: var(--radius-lg);
+            padding: 18px 18px 20px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.8);
+        }
+
+        #projectsSection h2 {
+            font-size: 1.1rem;
+            letter-spacing: 0.03em;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #projectsSection h2:first-of-type {
+            margin-bottom: 10px;
+        }
+
+        #projectsSection h2 span.icon {
+            font-size: 1.2rem;
+        }
+
+        .section-subtle-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* LISTA DE PROYECTOS */
+
+        #projectsList {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 10px;
+            max-height: 320px;
+            overflow: auto;
+            padding-right: 2px;
+            margin-bottom: 18px;
+        }
+
+        /* Scroll bonito */
+        #projectsList::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #projectsList::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #projectsList::-webkit-scrollbar-thumb {
+            background: rgba(107, 114, 128, 0.7);
+            border-radius: 999px;
         }
 
         .project {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 8px 0;
-            text-align: left;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.99));
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            box-shadow: 0 12px 25px rgba(15, 23, 42, 0.9);
+            position: relative;
+            overflow: hidden;
+            transition:
+                transform var(--transition-fast),
+                box-shadow var(--transition-fast),
+                border-color var(--transition-fast),
+                background var(--transition-med);
         }
 
-        #status {
-            margin-top: 12px;
-            font-size: 14px;
-            color: #333;
+        .project::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.18), transparent 60%);
+            opacity: 0;
+            transition: opacity var(--transition-med);
+        }
+
+        .project:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 1);
+            border-color: rgba(129, 140, 248, 0.7);
+            background: radial-gradient(circle at top left, var(--accent-soft), rgba(15, 23, 42, 0.98));
+        }
+
+        .project:hover::before {
+            opacity: 1;
+        }
+
+        .project strong {
+            font-size: 0.98rem;
+        }
+
+        .project small {
+            display: inline-block;
+            margin-top: 1px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .project>div {
+            margin-top: 5px;
+            font-size: 0.86rem;
+            line-height: 1.4;
+            color: #cbd5f5;
+        }
+
+        /* FORMULARIO NUEVO PROYECTO */
+
+        .new-project-card {
+            margin-top: 8px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(75, 85, 99, 0.9);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 10px;
+            border: 1px solid rgba(75, 85, 99, 0.95);
+            padding: 8px 10px;
+            color: var(--text-main);
+            font-size: 0.88rem;
+            outline: none;
+            transition:
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast),
+                background-color var(--transition-fast),
+                transform var(--transition-fast);
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: rgba(129, 140, 248, 0.9);
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+            background: rgba(15, 23, 42, 0.98);
+            transform: translateY(-1px);
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* ESTADOS / TEXTOS ESPECIALES */
+
+        p.empty-state {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: rgba(17, 24, 39, 0.9);
+            padding: 9px 11px;
+            border-radius: 10px;
+            border: 1px dashed rgba(75, 85, 99, 0.85);
+        }
+
+        /* RESPONSIVE */
+
+        @media (min-width: 880px) {
+            .app-main {
+                grid-template-columns: minmax(0, 2.4fr);
+            }
+
+            #projectsList {
+                max-height: 360px;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .form-grid textarea {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .app-shell {
+                padding: 18px 16px 18px;
+                border-radius: 18px;
+            }
+
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            #projectsList {
+                max-height: 260px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>Bienvenido</h1>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="app-title-group">
+                <h1>Bienvenido</h1>
+                <p>Gestiona tus proyectos de forma sencilla y elegante.</p>
+                <div id="status" aria-live="polite"></div>
+            </div>
 
-    <!-- Navegación -->
-    <button id="btnRegister" class="btn secondary">Registrar</button>
-    <button id="btnLogin" class="btn primary">Iniciar sesión</button>
-    <button id="btnLogout" class="btn danger">Cerrar sesión</button>
-    <button id="btnProfile" class="btn secondary">Perfil</button>
+            <div class="nav-actions">
+                <button id="btnRegister" class="btn secondary">Registrar</button>
+                <button id="btnLogin" class="btn primary">Iniciar sesión</button>
+                <button id="btnProfile" class="btn secondary">Perfil</button>
+                <button id="btnLogout" class="btn danger">Cerrar sesión</button>
+            </div>
+        </header>
 
-    <div id="status" aria-live="polite"></div>
+        <main class="app-main">
+            <!-- PROYECTOS -->
+            <div id="projectsSection" style="display:none;">
+                <h2><span class="icon">📄</span> Mis proyectos</h2>
+                <p class="section-subtle-label">Listado</p>
+                <div id="projectsList"></div>
 
-    <!-- PROYECTOS -->
-    <div id="projectsSection" style="display:none;">
-        <h2>📄 Mis proyectos</h2>
-        <div id="projectsList"></div>
-
-        <h2>➕ Nuevo proyecto</h2>
-        <input id="title" placeholder="Título">
-        <input id="description" placeholder="Descripción">
-        <textarea id="content" placeholder="Contenido"></textarea>
-        <button class="btn primary" onclick="createProject()">Crear proyecto</button>
+                <div class="new-project-card">
+                    <h2><span class="icon">➕</span> Nuevo proyecto</h2>
+                    <p class="section-subtle-label">Crear</p>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="title">Título</label>
+                            <input id="title" type="text" placeholder="Ej. CRM Consolidation Roadmap" />
+                        </div>
+                        <div class="input-group">
+                            <label for="description">Descripción</label>
+                            <input id="description" type="text" placeholder="Un resumen breve del proyecto" />
+                        </div>
+                        <div class="input-group">
+                            <label for="content">Contenido</label>
+                            <textarea id="content"
+                                placeholder="Describe el alcance, fases, riesgos y objetivos del proyecto..."></textarea>
+                        </div>
+                    </div>
+                    <button class="btn primary" onclick="createProject()">Crear proyecto</button>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
@@ -159,26 +564,29 @@
 
                 if (!res.ok) throw new Error('No autorizado');
 
-                const data = await res.json();
+                const body = await res.json();   // { message, data, count }
+                const projects = body.data || []; // aquí está el array de proyectos
+
                 projectsList.innerHTML = '';
 
-                if (data.length === 0) {
+                if (projects.length === 0) {
                     projectsList.innerHTML = '<p>No tienes proyectos aún</p>';
                     return;
                 }
 
-                data.forEach(p => {
+                projects.forEach(p => {
                     const div = document.createElement('div');
                     div.className = 'project';
                     div.innerHTML = `
-                        <strong>${p.title}</strong><br>
-                        <small>${p.description || ''}</small><br>
-                        <div>${p.content || ''}</div>
-                    `;
+                <strong>${p.title}</strong><br>
+                <small>${p.description || ''}</small><br>
+                <div>${p.content || ''}</div>
+            `;
                     projectsList.appendChild(div);
                 });
 
             } catch (err) {
+                console.error(err);
                 projectsList.innerHTML = '<p>Error cargando proyectos</p>';
             }
         }
