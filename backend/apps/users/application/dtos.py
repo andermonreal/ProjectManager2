@@ -40,6 +40,51 @@ class RegisterUserDTO:
         
         if not self.birthday:
             raise ValueError("La fecha de nacimiento es obligatoria")
+        
+@dataclass
+class CreateSuperuserDTO:
+    """
+    DTO para crear un superusuario
+    
+    Un superusuario tiene permisos completos sobre la aplicación
+    """
+    name: str
+    email: str
+    password: str
+    phone: str
+    birthday: date
+    icon: Optional[str] = None
+    
+    def validate(self) -> None:
+        """Validaciones específicas para superusuarios"""
+        if not self.name or len(self.name.strip()) == 0:
+            raise ValueError("El nombre es obligatorio")
+        
+        if not self.email or '@' not in self.email:
+            raise ValueError("Email inválido")
+        
+        # Contraseña más segura para superusuarios
+        if not self.password or len(self.password) < 12:
+            raise ValueError("La contraseña de superusuario debe tener al menos 12 caracteres")
+        
+        # Validar complejidad de contraseña
+        if not any(c.isupper() for c in self.password):
+            raise ValueError("La contraseña debe contener al menos una mayúscula")
+        
+        if not any(c.islower() for c in self.password):
+            raise ValueError("La contraseña debe contener al menos una minúscula")
+        
+        if not any(c.isdigit() for c in self.password):
+            raise ValueError("La contraseña debe contener al menos un número")
+        
+        if not any(c in '!@#$%^&*()_+-=[]{}|;:,.<>?' for c in self.password):
+            raise ValueError("La contraseña debe contener al menos un carácter especial")
+        
+        if not self.phone:
+            raise ValueError("El teléfono es obligatorio")
+        
+        if not self.birthday:
+            raise ValueError("La fecha de nacimiento es obligatoria")
 
 
 @dataclass
@@ -163,3 +208,21 @@ class UpdateUserDTO:
         # Validar icono si se proporciona
         if self.icon is not None and len(self.icon) > 300:
             raise ValueError("La URL del icono es demasiado larga (máximo 300 caracteres)")
+        
+@dataclass
+class ListUsersDTO:
+    """
+    DTO para listar usuarios (solo admin)
+    """
+    limit: int = 50
+    offset: int = 0
+    filter_by_active: Optional[bool] = None
+    filter_by_staff: Optional[bool] = None
+    search_email: Optional[str] = None
+    
+    def validate(self) -> None:
+        if self.limit < 1 or self.limit > 100:
+            raise ValueError("El límite debe estar entre 1 y 100")
+        
+        if self.offset < 0:
+            raise ValueError("El offset no puede ser negativo")

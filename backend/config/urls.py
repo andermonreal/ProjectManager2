@@ -19,10 +19,12 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 urlpatterns = [
+    path('api/admin/', include('apps.admin.urls')),
     path('admin/', admin.site.urls),
     
     # Autenticación
     path('api/users/', include('apps.users.presentation.urls')),
+    path('api/projects/', include('apps.projects.urls')),
     
     # JWT tokens
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

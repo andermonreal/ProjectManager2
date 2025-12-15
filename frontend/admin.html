@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+        }
+
+        header {
+            background: #020617;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #1e293b;
+        }
+
+        h1 {
+            color: #38bdf8;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            color: #22d3ee;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 4px;
+            border: none;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            background: #020617;
+            color: #e5e7eb;
+            border: 1px solid #334155;
+        }
+
+        button {
+            background: #0284c7;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #334155;
+            cursor: not-allowed;
+        }
+
+        pre {
+            background: #020617;
+            border: 1px solid #334155;
+            padding: 15px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+        }
+
+        .error {
+            color: #f87171;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        .info {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🔐 Admin Panel</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>🔑 Autenticación</h2>
+            <input id="token" placeholder="Pega aquí el JWT access token">
+            <button onclick="validateJWT()">Validar Token</button>
+            <pre id="authStatus"></pre>
+        </div>
+
+        <div class="card">
+            <h2>🖥️ System Diagnostics</h2>
+            <select id="commandType">
+                <option value="disk_usage">Uso de disco</option>
+                <option value="memory">Memoria</option>
+                <option value="processes">Procesos</option>
+                <option value="network">Red</option>
+                <option value="logs">Logs</option>
+            </select>
+            <input id="logFile" placeholder="/app/logs/projectManager.json.log">
+            <button id="diagBtn" onclick="runDiagnostics()" disabled>Ejecutar</button>
+            <pre id="diagnosticsOutput"></pre>
+        </div>
+
+        <div class="card">
+            <h2>💾 Backup Database</h2>
+            <input id="backupPath" placeholder="/tmp/backup.sql">
+            <select id="compression">
+                <option value="none">Sin compresión</option>
+                <option value="gzip">gzip</option>
+                <option value="bzip2">bzip2</option>
+            </select>
+            <button id="backupBtn" onclick="runBackup()" disabled>Crear Backup</button>
+            <pre id="backupOutput"></pre>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('access_token');
+            if (saved) {
+                const input = document.getElementById('token');
+                if (input) {
+                    input.value = saved;
+                    // validar automáticamente si existe la función
+                    if (typeof validateJWT === 'function') validateJWT();
+                }
+            }
+        });
+
+        const API_BASE = "http://localhost/api/admin";
+        let validToken = null;
+
+        function base64UrlDecode(str) {
+            str = str.replace(/-/g, '+').replace(/_/g, '/');
+            return JSON.parse(atob(str));
+        }
+
+        function validateJWT() {
+            const token = document.getElementById("token").value.trim();
+            const status = document.getElementById("authStatus");
+
+            try {
+                const parts = token.split(".");
+                if (parts.length !== 3) throw "Formato JWT inválido";
+
+                const payload = base64UrlDecode(parts[1]);
+                const now = Math.floor(Date.now() / 1000);
+
+                if (payload.exp < now) throw "Token expirado";
+                if (!payload.is_superuser) throw "No eres superusuario";
+
+                validToken = token;
+                status.textContent =
+                    `✅ Token válido\nUsuario: ${payload.email}\nSuperuser: ${payload.is_superuser}`;
+                status.className = "success";
+
+                document.getElementById("diagBtn").disabled = false;
+                document.getElementById("backupBtn").disabled = false;
+
+            } catch (e) {
+                validToken = null;
+                status.textContent = "❌ " + e;
+                status.className = "error";
+                document.getElementById("diagBtn").disabled = true;
+                document.getElementById("backupBtn").disabled = true;
+            }
+        }
+
+        function authHeaders() {
+            return {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + validToken
+            };
+        }
+
+        async function runDiagnostics() {
+            const out = document.getElementById("diagnosticsOutput");
+            out.textContent = "Ejecutando...";
+
+            const payload = {
+                command_type: document.getElementById("commandType").value,
+                log_file: document.getElementById("logFile").value
+            };
+
+            const res = await fetch(`${API_BASE}/diagnostics`, {
+                method: "POST",
+                headers: authHeaders(),
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            out.textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function runBackup() {
+            const out = document.getElementById("backupOutput");
+            out.textContent = "Creando backup...";
+
+            const payload = {
+                backup_path: document.getElementById("backupPath").value,
+                compression: document.getElementById("compression").value
+            };
+
+            const res = await fetch(`${API_BASE}/backup`, {
+                method: "POST",
+                headers: authHeaders(),
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            out.textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+
+</body>
+
+</html>

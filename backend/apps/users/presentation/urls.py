@@ -10,10 +10,13 @@ from .views import (
     ProfileView,
     ProtectedExampleView,
     PublicExampleView,
-    UpdateUserView
+    UpdateUserView,
+    CreateSuperuserView
 )
 
 urlpatterns = [
+    path('superusers/create', CreateSuperuserView.as_view(), name='create_superuser'),
+
     # Autenticación
     path('register', RegisterView.as_view(), name='register'),
     path('login', LoginView.as_view(), name='login'),

@@ -5,17 +5,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Inicio</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 420px;
+            max-width: 520px;
             margin: 40px auto;
             padding: 0 16px;
             text-align: center;
         }
 
-        h1 {
-            margin-bottom: 24px;
+        h1,
+        h2 {
+            margin-bottom: 16px;
         }
 
         .btn {
@@ -45,6 +47,21 @@
             border: none;
         }
 
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            font-size: 14px;
+        }
+
+        .project {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 8px 0;
+            text-align: left;
+        }
+
         #status {
             margin-top: 12px;
             font-size: 14px;
@@ -56,12 +73,25 @@
 <body>
     <h1>Bienvenido</h1>
 
+    <!-- Navegación -->
     <button id="btnRegister" class="btn secondary">Registrar</button>
     <button id="btnLogin" class="btn primary">Iniciar sesión</button>
     <button id="btnLogout" class="btn danger">Cerrar sesión</button>
-    <button id="btnProfile" class="btn info">Perfil</button>
+    <button id="btnProfile" class="btn secondary">Perfil</button>
 
     <div id="status" aria-live="polite"></div>
+
+    <!-- PROYECTOS -->
+    <div id="projectsSection" style="display:none;">
+        <h2>📄 Mis proyectos</h2>
+        <div id="projectsList"></div>
+
+        <h2>➕ Nuevo proyecto</h2>
+        <input id="title" placeholder="Título">
+        <input id="description" placeholder="Descripción">
+        <textarea id="content" placeholder="Contenido"></textarea>
+        <button class="btn primary" onclick="createProject()">Crear proyecto</button>
+    </div>
 
     <script>
         const btnRegister = document.getElementById('btnRegister');
@@ -70,41 +100,34 @@
         const btnProfile = document.getElementById('btnProfile');
         const status = document.getElementById('status');
 
+        const projectsSection = document.getElementById('projectsSection');
+        const projectsList = document.getElementById('projectsList');
+
+        const API_PROJECTS = '/api/projects/';
+
         // Navegación
-        btnRegister.addEventListener('click', () => window.location.href = 'register.html');
-        btnLogin.addEventListener('click', () => window.location.href = 'login.html');
-        btnProfile.addEventListener('click', () => window.location.href = 'profile.html');
+        btnRegister.onclick = () => location.href = 'register.html';
+        btnLogin.onclick = () => location.href = 'login.html';
+        btnProfile.onclick = () => location.href = 'profile.html';
 
         function isLoggedIn() {
             return !!localStorage.getItem('access_token');
         }
 
-        async function logout() {
-            const token = localStorage.getItem('access_token');
-            const refreshToken = localStorage.getItem('refresh_token');
-            if (refreshToken) {
-                try {
-                    await fetch('/api/users/logout', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + token
-                        },
-                        body: JSON.stringify({ refresh_token: refreshToken })  // Si tu API requiere refresh token, añádelo
-                    });
-                } catch (err) {
-                    console.warn('No se pudo notificar al servidor del logout', err);
-                }
-            }
+        function authHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            };
+        }
 
-            // Limpiar tokens
+        async function logout() {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
             updateUI();
-
         }
 
-        btnLogout.addEventListener('click', logout);
+        btnLogout.onclick = logout;
 
         function updateUI() {
             if (isLoggedIn()) {
@@ -112,20 +135,82 @@
                 btnRegister.style.display = 'none';
                 btnLogout.style.display = 'block';
                 btnProfile.style.display = 'block';
+                projectsSection.style.display = 'block';
                 status.textContent = 'Usuario autenticado';
+
+                loadProjects();
             } else {
                 btnLogin.style.display = 'block';
                 btnRegister.style.display = 'block';
                 btnLogout.style.display = 'none';
                 btnProfile.style.display = 'none';
+                projectsSection.style.display = 'none';
                 status.textContent = 'No autenticado';
             }
         }
 
-        // Inicializa UI según estado de sesión
+        async function loadProjects() {
+            projectsList.innerHTML = 'Cargando proyectos...';
+
+            try {
+                const res = await fetch(API_PROJECTS, {
+                    headers: authHeaders()
+                });
+
+                if (!res.ok) throw new Error('No autorizado');
+
+                const data = await res.json();
+                projectsList.innerHTML = '';
+
+                if (data.length === 0) {
+                    projectsList.innerHTML = '<p>No tienes proyectos aún</p>';
+                    return;
+                }
+
+                data.forEach(p => {
+                    const div = document.createElement('div');
+                    div.className = 'project';
+                    div.innerHTML = `
+                        <strong>${p.title}</strong><br>
+                        <small>${p.description || ''}</small><br>
+                        <div>${p.content || ''}</div>
+                    `;
+                    projectsList.appendChild(div);
+                });
+
+            } catch (err) {
+                projectsList.innerHTML = '<p>Error cargando proyectos</p>';
+            }
+        }
+
+        async function createProject() {
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const content = document.getElementById('content').value.trim();
+
+            if (!title) {
+                alert('El título es obligatorio');
+                return;
+            }
+
+            const res = await fetch(API_PROJECTS, {
+                method: 'POST',
+                headers: authHeaders(),
+                body: JSON.stringify({ title, description, content })
+            });
+
+            if (res.ok) {
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('content').value = '';
+                loadProjects();
+            } else {
+                alert('Error creando proyecto');
+            }
+        }
+
         updateUI();
     </script>
 </body>
-
 
 </html>

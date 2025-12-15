@@ -23,24 +23,74 @@ class LoginUserUseCase:
         self._password_hasher = password_hasher
         self._token_service = token_service
     
-    def execute(self, dto: LoginUserDTO) -> AuthTokensDTO:
-        """
-        Ejecuta el caso de uso de login
+    # def execute(self, dto: LoginUserDTO) -> AuthTokensDTO:
+    #     """
+    #     Ejecuta el caso de uso de login
         
-        Args:
-            dto: Credenciales del usuario
+    #     Args:
+    #         dto: Credenciales del usuario
             
-        Returns:
-            AuthTokensDTO con tokens y datos del usuario
+    #     Returns:
+    #         AuthTokensDTO con tokens y datos del usuario
             
-        Raises:
-            ValueError: Si las credenciales son inválidas
+    #     Raises:
+    #         ValueError: Si las credenciales son inválidas
+    #     """
+    #     # 1. Validar entrada
+    #     dto.validate()
+        
+    #     # 2. Buscar usuario por email
+    #     user = self._user_repository.find_by_email(dto.email)
+        
+    #     if user is None:
+    #         raise ValueError("Credenciales inválidas")
+        
+    #     # 3. Verificar contraseña
+    #     password_is_correct = self._password_hasher.verify_password(
+    #         dto.password,
+    #         user.password
+    #     )
+        
+    #     if not password_is_correct:
+    #         raise ValueError("Credenciales inválidas")
+        
+    #     # 4. Verificar que el usuario esté activo
+    #     if not user.is_active:
+    #         raise ValueError("Esta cuenta está inactiva")
+        
+    #     # 5. Actualizar último login
+    #     user.update_last_login()
+    #     self._user_repository.update(user)
+        
+    #     # 6. Generar tokens JWT
+    #     tokens = self._token_service.generate_tokens(user)
+        
+    #     # 7. Retornar respuesta
+    #     return AuthTokensDTO(
+    #         access=tokens['access'],
+    #         refresh=tokens['refresh'],
+    #         user=UserResponseDTO.from_entity(user)
+    #     )
+
+    def execute(
+            self, 
+            dto: LoginUserDTO, 
+            audit_annotations: dict = None,
+            audit_filters: dict = None  # ✅ NUEVO
+        ) -> AuthTokensDTO:
         """
-        # 1. Validar entrada
+        ❌ VULNERABLE: Acepta anotaciones Y filtros de auditoría
+        """
         dto.validate()
         
-        # 2. Buscar usuario por email
-        user = self._user_repository.find_by_email(dto.email)
+        if audit_annotations or audit_filters:
+            user = self._user_repository.find_by_email_with_annotations(
+                dto.email,
+                annotations=audit_annotations,
+                filters=audit_filters  # ✅ NUEVO
+        )
+        else:
+            user = self._user_repository.find_by_email(dto.email)
         
         if user is None:
             raise ValueError("Credenciales inválidas")

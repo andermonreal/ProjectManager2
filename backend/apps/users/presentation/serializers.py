@@ -34,6 +34,71 @@ class RegisterUserSerializer(serializers.Serializer):
         """Normaliza el email"""
         return value.lower().strip()
 
+class CreateSuperuserSerializer(serializers.Serializer):
+    """Serializer para crear superusuario"""
+    
+    name = serializers.CharField(max_length=100, required=True)
+    email = serializers.EmailField(max_length=150, required=True)
+    password = serializers.CharField(write_only=True, min_length=8, required=True)
+    phone = serializers.CharField(max_length=20, required=True)
+    birthday = serializers.DateField(required=True)
+    icon = serializers.CharField(max_length=300, required=False, allow_null=True, allow_blank=True)
+    
+    def validate_birthday(self, value):
+        """Validar fecha de nacimiento"""
+        if value > date.today():
+            raise serializers.ValidationError("La fecha de nacimiento no puede ser futura")
+        
+        age = (date.today() - value).days // 365
+        if age < 18:
+            raise serializers.ValidationError("Debes ser mayor de 18 años")
+        
+        return value
+    
+    # def validate_password(self, value):
+    #     """Validar complejidad de contraseña"""
+    #     if len(value) < 12:
+    #         raise serializers.ValidationError("La contraseña debe tener al menos 12 caracteres")
+        
+    #     if not any(c.isupper() for c in value):
+    #         raise serializers.ValidationError("Debe contener al menos una mayúscula")
+        
+    #     if not any(c.islower() for c in value):
+    #         raise serializers.ValidationError("Debe contener al menos una minúscula")
+        
+    #     if not any(c.isdigit() for c in value):
+    #         raise serializers.ValidationError("Debe contener al menos un número")
+        
+    #     if not any(c in '!@#$%^&*()_+-=[]{}|;:,.<>?' for c in value):
+    #         raise serializers.ValidationError("Debe contener al menos un carácter especial")
+        
+    #     return value
+
+
+class ListUsersSerializer(serializers.Serializer):
+    """Serializer para parámetros de listado"""
+    
+    limit = serializers.IntegerField(default=50, min_value=1, max_value=100)
+    offset = serializers.IntegerField(default=0, min_value=0)
+    filter_by_active = serializers.BooleanField(required=False, allow_null=True)
+    filter_by_staff = serializers.BooleanField(required=False, allow_null=True)
+    search_email = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+
+class UserDetailSerializer(serializers.Serializer):
+    """Serializer para respuesta detallada de usuario (admin)"""
+    
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    email = serializers.EmailField()
+    phone = serializers.CharField()
+    birthday = serializers.DateField()
+    money = serializers.DecimalField(max_digits=10, decimal_places=2)
+    icon = serializers.CharField(allow_null=True)
+    is_active = serializers.BooleanField()
+    is_staff = serializers.BooleanField()
+    is_superuser = serializers.BooleanField()
+    last_login = serializers.DateTimeField(allow_null=True)
+    date_joined = serializers.DateTimeField()
 
 class LoginUserSerializer(serializers.Serializer):
     """Serializer para el login de usuarios"""

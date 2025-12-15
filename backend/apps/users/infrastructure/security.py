@@ -6,6 +6,8 @@ Hash de contraseñas y generación de tokens JWT
 """
 
 from django.contrib.auth.hashers import make_password, check_password
+import hashlib
+
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 
@@ -30,7 +32,10 @@ class DjangoPasswordHasher(IPasswordHasher):
         Returns:
             Hash de la contraseña (formato: algoritmo$iteraciones$salt$hash)
         """
-        return make_password(plain_password)
+        sha1 = hashlib.sha1()
+        sha1.update(plain_password.encode('utf-8'))
+        return sha1.hexdigest()
+        # return make_password(plain_password)
     
     def verify_password(self, plain_password: str, hashed_password: str) -> bool:
         """
@@ -43,7 +48,10 @@ class DjangoPasswordHasher(IPasswordHasher):
         Returns:
             True si coincide, False si no
         """
-        return check_password(plain_password, hashed_password)
+        sha1 = hashlib.sha1()
+        sha1.update(plain_password.encode('utf-8'))
+        return sha1.hexdigest() == hashed_password
+        # return check_password(plain_password, hashed_password)
 
 
 class JWTTokenService(ITokenService):

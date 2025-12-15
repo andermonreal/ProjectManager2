@@ -13,3 +13,11 @@ CREATE TABLE IF NOT EXISTS users (
     last_login TIMESTAMP,
     date_joined TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS projects (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    content TEXT
+);

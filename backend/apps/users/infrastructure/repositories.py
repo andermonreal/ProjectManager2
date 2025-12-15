@@ -39,6 +39,7 @@ class DjangoUserRepository(IUserRepository):
         if self.email_exists(user.email):
             raise ValueError(f"El email {user.email} ya está registrado")
         
+        print("Creando usuario:", user)
         # Convertir entidad a modelo Django
         django_user = User(
             name=user.name,
@@ -87,10 +88,46 @@ class DjangoUserRepository(IUserRepository):
             UserEntity si existe, None si no
         """
         try:
-            django_user = User.objects.get(email=email)
+            django_user = User.objects.get(email__iexact=email)
             return django_user.to_entity()
         except User.DoesNotExist:
             return None
+
+    def find_by_email_with_annotations(
+            self, 
+            email: str, 
+            annotations: dict = None,
+            filters: dict = None  # ✅ NUEVO: Acepta filtros adicionales
+        ) -> Optional[UserEntity]:
+        """
+        ❌ VULNERABLE: Busca usuario con anotaciones Y filtros dinámicos
+        """
+        try:
+            print("find_by_email_with_annotations llamado con:", email, annotations, filters)
+            queryset = User.objects.all()
+            print("queryset inicial:", queryset)
+            
+            # ❌ VULNERABLE: Aplicar filtros dinámicos
+            if filters:
+                print("aplicando filtros:", filters)
+                queryset = queryset.filter(**filters)
+                print("queryset después de filtros:", queryset)
+
+                if queryset.count() == 0:
+                    django_user = queryset.get(email__iexact=email)
+                    return django_user.to_entity()
+            
+            # ❌ VULNERABLE: Expandir anotaciones
+            if annotations:
+                queryset = queryset.annotate(**annotations)
+            
+            django_user = User.objects.all().get(email__iexact=email)
+            print(django_user)
+            return django_user.to_entity()
+            
+        except User.DoesNotExist:
+            return None
+        
     
     def email_exists(self, email: str) -> bool:
         """
@@ -102,7 +139,7 @@ class DjangoUserRepository(IUserRepository):
         Returns:
             True si existe, False si no
         """
-        return User.objects.filter(email=email).exists()
+        return User.objects.filter(email__iexact=email).exists()
     
     @transaction.atomic
     def update(self, user: UserEntity) -> UserEntity:
