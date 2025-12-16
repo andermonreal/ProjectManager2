@@ -2,11 +2,11 @@ INSERT INTO users
 (name, email, password, phone, birthday, money, icon, is_active, is_staff, is_superuser, last_login)
 VALUES
 -- Superusers (máximo 5)
-('monre', 'monre@projectManager.com', 'a761ce3a45d97e41840a788495e85a70d1bb3815', '600111111', '1990-01-10', 0.00, '', TRUE, TRUE, TRUE, NULL),
 ('andoni', 'andoni@projectManager.com', 'dbcfa902fd131b8a9fa28e045367a8ccb0eabd89', '600222222', '1988-03-15', 0.00, '', TRUE, TRUE, TRUE, NULL),
-('ander', 'ander@projectManager.com', 'ead42151a14539be4a14819be3beab49e2d12e83', '600333333', '1985-07-20', 0.00, '', TRUE, TRUE, TRUE, NULL),
-('elisabeth', 'elisabeth@projectManager.com', 'b1b3773a05c0ed0176787a4f1574ff0075f7521e', '600444444', '1992-11-05', 0.00, '', TRUE, TRUE, TRUE, NULL),
-('tomi', 'tomi@projectManager.com', '356a192b7913b04c54574d18c28d46e6395428ab', '600555555', '1995-09-25', 0.00, '', TRUE, TRUE, TRUE, NULL),
+('ander', 'ander@projectManager.com', '3182c8e8bccbf13f48fd110da789a0420206a3d8', '600333333', '1985-07-20', 0.00, '', TRUE, TRUE, TRUE, NULL),
+('elisabeth', 'elisabeth@projectManager.com', '6453fb05855c8e275d0a8fcb1dbd946ea0b8fc9e', '600444444', '1992-11-05', 0.00, '', TRUE, TRUE, TRUE, NULL),
+('monre', 'monre@projectManager.com', 'a761ce3a45d97e41840a788495e85a70d1bb3815', '600111111', '1990-01-10', 0.00, '', TRUE, TRUE, TRUE, NULL),
+('tomi', 'tomi@projectManager.com', '62697ba227ef69776af46c700749bfbc99f5ffcb', '600555555', '1995-09-25', 0.00, '', TRUE, TRUE, TRUE, NULL),
 
 -- Usuarios normales
 ('alex', 'alex@projectManager.com', 'cbfdac6008f9cab4083784cbd1874f76618d2a97', '610000001', '1995-02-02', 10.50, '', TRUE, TRUE, FALSE, NULL),
