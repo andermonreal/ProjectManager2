@@ -1,0 +1,171 @@
+------------------------------------------------------------
+DEPARTAMENTO DE INFORMÁTICA Y TECNOLOGÍAS DE LA INFORMACIÓN
+SIMULACIÓN DE ACTIVIDADES Y REGISTRO SEMANAL
+Periodo: 8 al 14 de Diciembre de 2025
+------------------------------------------------------------
+
+**Responsable del Departamento:**  
+   - Director de TI: Ing. David S. Contreras  
+   - Administrador de Sistemas: María José Santillán  
+   - Desarrollador Senior Backend: Sergio Medina  
+   - Analista de Seguridad Informática: Raúl Fernández  
+   - Coordinadora de Soporte Técnico: Diana Lizcano  
+
+**Objetivo General del Departamento:**  
+   Asegurar la continuidad operativa, la seguridad informática y la modernización tecnológica de la infraestructura corporativa, impulsando la eficiencia digital y el cumplimiento de los estándares de seguridad y calidad del software.
+
+------------------------------------------------------------
+I. ESTADO GENERAL DE LA INFRAESTRUCTURA
+------------------------------------------------------------
+
+1. **Resumen técnico:**
+   - Servidores activos: 42 (97.8% operativos).  
+   - Incidentes reportados: 8 (7 menores, 1 moderado).  
+   - Tiempo medio de resolución: 2,3 horas.  
+   - Disponibilidad promedio del sistema: 99.94%.  
+
+2. **Mantenimiento preventivo general:**
+   - Revisión de copias de seguridad (completadas sin fallas).  
+   - Verificación de integridad RAID y estado de discos.  
+   - Actualización del firmware de switches de red (21 unidades).  
+
+3. **Entorno cloud y virtualización:**
+   - Ampliación de recursos en entorno AWS (+25% almacenamiento).  
+   - Optimización de instancias y balanceadores de carga.  
+   - Implementación de monitoreo proactivo 24/7 en sistemas críticos.  
+
+------------------------------------------------------------
+II. SEGURIDAD INFORMÁTICA Y GESTIÓN DE INCIDENTES
+------------------------------------------------------------
+
+1. **[TAREA PRIORITARIA – URGENTE] Actualización de Django 4.2 (CVE-2025-13372):**  
+   - Descripción: Vulnerabilidad crítica recientemente publicada en el framework Django versión 4.2, con afectación directa a entornos web internos.  
+   - Nivel de prioridad: CRÍTICO (acción inmediata).  
+   - Estado: actualizaciones en curso (entornos de desarrollo ya corregidos).  
+   - Acciones adoptadas:
+        • Aplicación del parche oficial de seguridad y verificación manual del entorno de producción.  
+        • Revisión de dependencias afectadas en entornos virtualizados.  
+        • Notificación interna enviada a todos los desarrolladores (14/12/2025).  
+   - Fecha límite de cierre: **17 de diciembre de 2025.**
+
+2. **[TAREA SECUNDARIA] Ocultar panel de administración para usuarios no superusuarios:**  
+   - Objetivo: mejorar la privacidad operativa del panel de control del sistema.  
+   - Estado: planificado / implementación parcial en fase de pruebas.  
+   - Estimación de finalización: 22 de diciembre de 2025.  
+   - Impacto: bajo, sin afectación directa en producción.
+
+3. **[TAREA COMPLEMENTARIA] Ocultar endpoints públicos de la API:**  
+   - Objetivo: reducir la exposición innecesaria de rutas de API haciendo uso de autenticación reforzada.  
+   - Estado: completado al 70%; testeos en entorno staging.  
+   - Ajustes realizados:
+        • Configuración de permisos por token y usuario.  
+        • Revisión de endpoints legacy para eliminación segura.  
+   - Cierre estimado: 19 de diciembre de 2025.  
+
+------------------------------------------------------------
+III. DESARROLLO DE SOFTWARE Y MANTENIMIENTO APLICATIVO
+------------------------------------------------------------
+
+1. **Proyectos activos:**
+   - “Intranet Corporativa v3”: en pruebas de aceptación final del cliente interno.  
+   - “Portal B2B”: migración a arquitectura microservicios (avance 65%).  
+   - “Dashboard Ejecutivo”: desarrollo de reportes dinámicos para Dirección General.  
+
+2. **Gestión de versiones y control de código:**
+   - Commits registrados en la semana: 412.  
+   - Integraciones continuas exitosas: 98%.  
+   - Deploys en entorno de producción: 3 (sin incidencias).  
+
+3. **Testing y QA:**
+   - Casos automatizados ejecutados: 2.340.  
+   - Cobertura de código: 87%.  
+   - Se inicia la integración con sistema SonarQube para control de calidad de código.  
+
+------------------------------------------------------------
+IV. SOPORTE TÉCNICO Y USUARIOS INTERNOS
+------------------------------------------------------------
+
+1. **Incidencias registradas:**
+   - Total: 137 tickets cerrados / 19 abiertos.  
+   - Categoría más frecuente: problemas de acceso remoto.  
+   - Tiempo medio de atención: 53 minutos.  
+
+2. **Proyectos de mejora interna:**
+   - Nuevo sistema de autoasistencia ITSM integrado a la intranet.  
+   - Implementación de chatbot de soporte nivel 1 (fase piloto).  
+
+3. **Capacitación del personal:**
+   - Sesión: “Buenas prácticas en ciberseguridad y contraseñas”.  
+   - Participantes: 63 usuarios.  
+   - Evaluación promedio: 9,2/10.  
+
+------------------------------------------------------------
+V. REDES, SEGURIDAD Y COMUNICACIONES
+------------------------------------------------------------
+
+1. **Infraestructura de red:**
+   - Segmentación actualizada en VLANs por departamento.  
+   - Optimización de tráfico interno (−11% latencia media).  
+   - Instalación de firewall de nueva generación en sede central.  
+
+2. **Seguridad de acceso remoto:**
+   - Revisión general de accesos VPN activos.  
+   - Implementación de autenticación multifactor (MFA) en 100% del personal.  
+   - Reporte semanal de accesos anómalos: 0 detecciones críticas.  
+
+3. **Monitoreo y alertas:**
+   - Sistema SIEM actualizado con filtros personalizados.  
+   - Notificaciones auditadas y centralizadas en el SOC corporativo.  
+   - 100% de alertas procesadas en menos de 30 minutos.  
+
+------------------------------------------------------------
+VI. PROYECTOS TECNOLÓGICOS EN CURSO
+------------------------------------------------------------
+
+1. **“Infraestructura Cloud 2026”:**
+   - Objetivo: migrar el 90% de los sistemas internos a entornos híbridos.  
+   - Avance: 54%.  
+   - Actividad reciente: test de rendimiento de servidores web.  
+
+2. **“Ciberseguridad Avanzada”:**
+   - Instalación de IDS/IPS internos para detección proactiva.  
+   - Coordinación con el área de Riesgos de Proyectos.  
+   - Evaluación final programada para enero 2026.  
+
+3. **“Modernización de Herramientas de Desarrollo”:**
+   - Actualización planificada a entornos Node.js y Python 3.12.  
+   - Revisión de compatibilidades y dependencias entre frameworks.  
+
+------------------------------------------------------------
+VII. COORDINACIÓN INTERDEPARTAMENTAL Y REUNIONES
+------------------------------------------------------------
+
+1. **Con Dirección General:**
+   - Presentación del informe de estado de seguridad (13 de diciembre).  
+   - Solicitud de recursos adicionales para modernización de servidores propios.  
+
+2. **Con Finanzas:**
+   - Coordinación presupuestaria para renovación de licencias anuales (Q1 2026).  
+
+3. **Con Proyectos:**
+   - Soporte técnico en despliegues de soluciones internas.  
+   - Asesoría sobre compatibilidad con nuevos sistemas cloud.  
+
+------------------------------------------------------------
+VIII. PLANIFICACIÓN PRÓXIMA SEMANA
+------------------------------------------------------------
+
+- Lunes 16: Aplicar actualización urgente de Django 4.2 (CVE-2025-13372).  
+- Martes 17: Auditoría de entornos productivos y pruebas de estabilidad post-parche.  
+- Miércoles 18: Implementar ocultamiento progresivo de endpoints API.  
+- Jueves 19: Validar mejora de acceso al panel admin (visibilidad restringida).  
+- Viernes 20: Revisión final de seguridad y reporte a Dirección General.  
+
+------------------------------------------------------------
+**Observaciones finales del Director de TI:**
+El departamento mantiene control estable de la infraestructura, priorizando la seguridad informática y las actualizaciones críticas. La incidencia asociada a Django (CVE-2025-13372) ha sido tratada con carácter urgente para evitar cualquier riesgo operativo. Los siguientes pasos se centrarán en reforzar la seguridad de acceso, optimizar la arquitectura backend y mejorar la automatización del despliegue continuo.
+
+Documento elaborado por:  
+Departamento de Informática y Tecnologías de la Información  
+Fecha: 15 de diciembre de 2025
+------------------------------------------------------------

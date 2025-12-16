@@ -1,0 +1,145 @@
+------------------------------------------------------------
+DEPARTAMENTO DE COORDINACIÓN Y GESTIÓN INSTITUCIONAL
+SIMULACIÓN DE ACTIVIDADES Y REGISTRO SEMANAL
+Periodo: 8 al 14 de Diciembre de 2025
+------------------------------------------------------------
+
+**Responsable del Departamento:**  
+   - Coordinadora General: Lic. Ana Beltrán Morales  
+   - Asistente de Proyectos Transversales: Pablo Serrano  
+   - Analista de Procesos Organizacionales: Lucía Pérez  
+   - Responsable de Comunicación Interna: Daniel Ortega  
+
+**Objetivo General del Departamento:**  
+   Facilitar la integración operativa entre áreas, optimizar los canales de comunicación interna y garantizar la ejecución eficiente de los programas, eventos y proyectos interdepartamentales que requieren acompañamiento logístico y estratégico.
+
+------------------------------------------------------------
+I. GESTIÓN GENERAL Y FUNCIONES TRANSVERSALES
+------------------------------------------------------------
+
+1. **Línea general de trabajo:**  
+   - Coordinación de tareas conjuntas entre Dirección, Finanzas, Ventas, Marketing, RRHH y TI.  
+   - Supervisión de flujos administrativos, reportes y entregables interdepartamentales.  
+   - Control de cumplimiento de cronogramas institucionales.  
+
+2. **Hitos principales de la semana:**  
+   - Consolidación del calendario general 2026 (operativo y estratégico).  
+   - Apoyo logístico a la sesión de Comité de Dirección del lunes 9 de diciembre.  
+   - Coordinación técnica con TI para los nuevos accesos de usuario al intranet actualizado.  
+
+3. **Indicadores de gestión:**  
+   - Cumplimiento de tareas planificadas: 94%.  
+   - Tiempo de respuesta promedio entre áreas: 3,8 horas.  
+   - Nivel de satisfacción interna (encuesta piloto): 8.9/10.  
+
+------------------------------------------------------------
+II. PLANIFICACIÓN Y COORDINACIÓN INTERNA
+------------------------------------------------------------
+
+1. **Reunión de planificación semanal (Martes 10 de diciembre):**  
+   - Revisión de cronogramas de proyectos activos.  
+   - Ajuste de interdependencias con los departamentos de Proyectos y Finanzas.  
+   - Definición de prioridades operativas para cierre de año.  
+
+2. **Asignación de tareas interdepartamentales:**  
+   - Dirección General: coordinación de la presentación final del plan estratégico 2026.  
+   - Finanzas: validación de entregables presupuestarios.  
+   - Recursos Humanos: organización de eventos internos (convivencia de cierre de año).  
+   - Ventas y Marketing: apoyo logístico a reuniones B2B regionales.  
+   - TI: supervisión del cronograma de mantenimiento con prioridad de seguridad.  
+
+3. **Gestión documental y seguimiento:**  
+   - Actualización del registro maestro de coordinaciones.  
+   - Validación de minutas semanales y acuerdos institucionales.  
+   - Digitalización de flujos de autorización a través de intranet.  
+
+------------------------------------------------------------
+III. COMUNICACIÓN INTERNA Y FLUJO INFORMATIVO
+------------------------------------------------------------
+
+1. **Canales de comunicación:**  
+   - Implementación de sistema unificado de mensajería interna.  
+   - Creación de espacio “Canal Coordinación” en intranet corporativa.  
+   - Difusión de boletines internos con resumen semanal de avances de área.  
+
+2. **Gestión de incidencias comunicacionales:**  
+   - Detección de duplicidad de solicitudes en 2 departamentos (resueltas).  
+   - Simplificación del circuito de aprobación para tareas urgentes.  
+   - Integración de panel de seguimiento visible para dirección y mandos medios.  
+
+3. **Eventos corporativos y calendario institucional:**  
+   - Cierre de año programado: viernes 20 de diciembre (confirmado).  
+   - Planificación del Foro Interno de Coordinación 2026 (febrero 2026).  
+   - Asignación de responsables para la logística general (transporte, locaciones y multimedia).  
+
+------------------------------------------------------------
+IV. APOYO OPERATIVO Y CONTROL DE PROCESOS
+------------------------------------------------------------
+
+1. **Gestión de tareas críticas:**  
+   - Coordinación del envío de reportes financieros al Comité de Supervisión.  
+   - Supervisión de entregas de informes de TI (Django v4.2 – CVE solucionado).  
+   - Seguimiento del cumplimiento de los plazos del "Proyecto Horizonte Digital".  
+
+2. **Flujo y trazabilidad:**  
+   - Registro consolidado de tareas completadas: 140.  
+   - Seguimiento de pendientes críticos: 6 (en curso).  
+   - Intervenciones de coordinación directa realizadas: 18.  
+
+3. **Mejoras operativas:**  
+   - Simplificación de flujos de comunicación interna (flujo -12% en tiempos de validación).  
+   - Implementación de plantillas estandarizadas para informes y actas.  
+   - Creación de protocolo único de seguimiento semanal.  
+
+------------------------------------------------------------
+V. ANÁLISIS Y EVALUACIÓN DE PROCESOS
+------------------------------------------------------------
+
+1. **Mapeo de procesos clave (proyecto interdepartamental):**
+   - Áreas mapeadas durante la semana: Ventas, Proyectos, y RRHH.  
+   - Resultados: detección de redundancias en aprobación de solicitudes.  
+   - Medidas: simplificación y redistribución de funciones semanales.  
+
+2. **Indicadores de desempeño coordinativo:**
+   - Tareas completadas a tiempo: 93%.  
+   - Reportes entregados en forma: 96%.  
+   - Retrasos justificados: 4% (por espera de validaciones externas).  
+
+3. **Evaluación de alineación estratégica:**
+   - Todos los departamentos mantienen alineación con el plan anual 2025.  
+   - Sugerencias de coordinación: anticipar los plazos de revisión de metas 2026.  
+
+------------------------------------------------------------
+VI. COLABORACIÓN Y CLIMA ORGANIZACIONAL
+------------------------------------------------------------
+
+1. **Reunión con Recursos Humanos (Jueves 12 de diciembre):**
+   - Coordinación del evento de cierre de año.  
+   - Definición del nuevo programa de actividades internas 2026.  
+
+2. **Clima laboral y cultura de integración:**
+   - Encuesta semestral presentada: 87% de percepción positiva.  
+   - Áreas de mejora: simplificación de flujos administrativos y soporte digital.  
+
+3. **Acciones de cohesión:**
+   - Implementación del programa “Comunicación Efectiva entre Departamentos”.  
+   - Actividades de team building calendarizadas trimestralmente.  
+
+------------------------------------------------------------
+VII. PLANIFICACIÓN Y TAREAS PRÓXIMA SEMANA
+------------------------------------------------------------
+
+- Lunes 16: Consolidar minutas finales de comités 2025.  
+- Martes 17: Revisión cruzada de proyectos con PMO.  
+- Miércoles 18: Coordinación final de eventos institucionales.  
+- Jueves 19: Validación integral del calendario 2026.  
+- Viernes 20: Envío del informe global de coordinación a la Dirección General.  
+
+------------------------------------------------------------
+**Observaciones finales de la Coordinadora General:**
+El trabajo del departamento se mantiene alineado al plan de cierre anual con alta tasa de cumplimiento y comunicación efectiva entre áreas. Para 2026, el enfoque estará en digitalizar completamente los procesos de coordinación, optimizar los tiempos de respuesta y consolidar la cultura transversal de colaboración interna.
+
+Documento elaborado por:  
+Departamento de Coordinación y Gestión Institucional  
+Fecha: 15 de diciembre de 2025
+------------------------------------------------------------

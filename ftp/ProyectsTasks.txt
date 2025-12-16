@@ -1,0 +1,160 @@
+------------------------------------------------------------
+DEPARTAMENTO DE PROYECTOS Y GESTIÓN ESTRATÉGICA
+SIMULACIÓN DE ACTIVIDADES Y REGISTRO SEMANAL
+Periodo: 8 al 14 de Diciembre de 2025
+------------------------------------------------------------
+
+**Responsable del Departamento:**  
+   - Director de Proyectos: Ing. Manuel R. Esquivel  
+   - Coordinadora de Oficina de Proyectos (PMO): Laura Quintana  
+   - Analista de Seguimiento y Control: Javier Roldán  
+   - Gestora de Riesgos y Cumplimiento: Alejandra Torres  
+
+**Objetivo General del Departamento:**  
+   Dirigir, coordinar y supervisar todos los proyectos estratégicos de la organización, garantizando la entrega de resultados dentro de los plazos, presupuestos y estándares de calidad previstos, alineando las iniciativas con los objetivos corporativos y de sostenibilidad.
+
+------------------------------------------------------------
+I. ESTADO GLOBAL DE LA CARTERA DE PROYECTOS
+------------------------------------------------------------
+
+1. **Resumen general:**
+   - Proyectos activos: 11  
+   - Proyectos en fase de cierre: 4  
+   - Proyectos en planificación: 3  
+   - Nivel de cumplimiento global: 87%  
+   - Valor total de cartera gestionada: 14,8 M€  
+
+2. **Distribución por categoría:**
+   - Tecnología e Innovación: 5 proyectos  
+   - Infraestructura y Operaciones: 3 proyectos  
+   - Cultura Organizacional y RRHH: 2 proyectos  
+   - Sostenibilidad y RSC: 1 proyecto  
+
+3. **Principales hitos alcanzados en la semana:**
+   - Finalización de instalación de módulo ERP (Proyecto Horizonte Digital).  
+   - Validación del piloto de automatización logística.  
+   - Edición del informe trimestral de desempeño de proyecto enviado a Dirección General.  
+
+------------------------------------------------------------
+II. PROYECTOS ESTRATÉGICOS PRIORITARIOS
+------------------------------------------------------------
+
+1. **Proyecto "Horizonte Digital":**
+   - Objetivo: digitalización integral de procesos y migración al entorno cloud.  
+   - Avance global: 72%.  
+   - Logros recientes:
+        • Finalizada integración de sistemas CRM y ERP.  
+        • Formación de usuarios clave completada.  
+   - Riesgos detectados: demora en licencias de software complementario.  
+   - Mitigación: sustitución temporal mediante herramientas internas.
+
+2. **Proyecto "Sostenibilidad 2026":**
+   - Objetivo: implementación de políticas ecológicas y eficiencia energética.  
+   - Avance actual: 41%.  
+   - Acciones recientes:
+        • Aprobado diseño de sistema de reciclaje corporativo.  
+        • Inicio de auditorías energéticas por sede.  
+   - Próximos pasos:
+        • Definir KPIs ambientales y plan de compensación de huella de carbono.
+
+3. **Proyecto "Cultura Corporativa y Liderazgo":**
+   - Objetivo: fortalecimiento del liderazgo interno y de la comunicación organizativa.  
+   - Avance: 95% (fase final).  
+   - Actividades recientes: aplicación del test de clima laboral y sesiones de feedback.  
+   - Resultado esperado: informe completo para RRHH el 20 de diciembre.  
+
+------------------------------------------------------------
+III. PLANIFICACIÓN Y CONTROL DE EJECUCIÓN
+------------------------------------------------------------
+
+1. **Reuniones de seguimiento:**
+   - Comité de Proyectos (Martes 10 de diciembre, 09:00-11:00).  
+   - Temas tratados:
+        • Evaluación de indicadores de cumplimiento (KPI).  
+        • Análisis de desviaciones presupuestarias.  
+        • Plan de acción correctivo para proyectos con demoras mayores al 10%.  
+
+2. **Indicadores principales:**
+   - Cumplimiento de hitos: 89%.  
+   - Plazos promedio de entrega: desviación media del 6,3%.  
+   - Rendimiento financiero por proyecto: 95% de ejecución dentro del rango previsto.
+
+3. **Gestión de documentación:**
+   - Implementación del repositorio digital centralizado (ShareDocs).  
+   - Control de versiones actualizado.  
+   - Validación de flujos de aprobación con nivel jerárquico automático.  
+
+------------------------------------------------------------
+IV. PRESUPUESTO Y CONTROL FINANCIERO
+------------------------------------------------------------
+
+1. **Resumen económico general:**
+   - Presupuesto anual asignado: 15 M€.  
+   - Ejecución actual: 13.3 M€ (88.7%).  
+   - Desviaciones controladas:
+        • Ahorros en adquisiciones de software (-4%).  
+        • Incremento en costes de consultoría externa (+2.5%).  
+
+2. **Gestión financiera semanal:**
+   - Liberación de 250.000 € para continuidad de proyectos tecnológicos.  
+   - Aprobación de adelantos de caja para fase de obra civil en logística.  
+   - Coordinación con Finanzas para proyección de cierre anual.  
+
+3. **Evaluación de retorno (ROI de proyectos finalizados):**
+   - Media ROI: 118%.  
+   - Tiempo de recuperación promedio: 14 meses.  
+   - Proyecto más rentable: “Automatización de Distribución” (ROI: 142%).  
+
+------------------------------------------------------------
+V. GESTIÓN DE RIESGOS Y CUMPLIMIENTO
+------------------------------------------------------------
+
+1. **Riesgos identificados (actualización semanal):**
+   - 12 activos / 5 mitigados / 1 crítico (pendiente).  
+   - Riesgo crítico: demora en entrega de licencias internacionales.  
+   - Nivel de impacto estimado: medio-alto.  
+
+2. **Plan de mitigación:**
+   - Priorización de dependencias interdepartamentales.  
+   - Proveedor secundario de respaldo contratado temporalmente.  
+   - Revisión de cláusulas contractuales con el área legal.  
+
+3. **Cumplimiento normativo:**
+   - Adaptación de metodologías a estándares ISO 21500 y PMBOK 7ª edición.  
+   - Auditoría de procesos internos programada para enero 2026.  
+   - Registro de trazabilidad actualizado en la plataforma PMO Suite.  
+
+------------------------------------------------------------
+VI. COORDINACIÓN INTERDEPARTAMENTAL
+------------------------------------------------------------
+
+1. **Con Dirección General:**  
+   - Revisión de avance trimestral de proyectos estratégicos.  
+   - Preparación del informe de prioridades para 2026.  
+
+2. **Con Finanzas:**  
+   - Ajustes presupuestarios y justificación de desviaciones.  
+   - Validación del forecast económico trimestral.  
+
+3. **Con TI y Marketing:**  
+   - Coordinación del desarrollo del portal de innovación y dashboard de proyectos.  
+   - Integración de reportes visuales automatizados.  
+
+------------------------------------------------------------
+VII. PLANIFICACIÓN Y TAREAS PRÓXIMA SEMANA
+------------------------------------------------------------
+
+- Lunes 16: Revisión técnica de avances de “Horizonte Digital”.  
+- Martes 17: Cierre documental de “Cultura Corporativa”.  
+- Miércoles 18: Planificación del nuevo programa de Innovación 2026.  
+- Jueves 19: Presentación de auditoría interna ante Comité Directivo.  
+- Viernes 20: Consolidación del informe de desempeño anual y cierre de cartera 2025.  
+
+------------------------------------------------------------
+**Observaciones finales del Director de Proyectos:**
+El desempeño del área se mantiene dentro de los parámetros planificados, con un cierre anual proyectado exitoso y alto cumplimiento de plazos. Para el año 2026, se priorizará la metodología ágil híbrida, la automatización de reportes y la capacitación técnica del personal, orientando la gestión hacia un modelo innovador y sostenible.
+
+Documento elaborado por:  
+Departamento de Proyectos y Gestión Estratégica  
+Fecha: 15 de diciembre de 2025
+------------------------------------------------------------

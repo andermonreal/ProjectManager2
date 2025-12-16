@@ -1,0 +1,161 @@
+------------------------------------------------------------
+DEPARTAMENTO DE CONTACTO Y EXPERIENCIA DEL CLIENTE
+SIMULACIÓN DE ACTIVIDADES Y REGISTRO SEMANAL
+Periodo: 8 al 14 de Diciembre de 2025
+------------------------------------------------------------
+
+**Responsable del Departamento:**  
+   - Jefa del Departamento: Laura Jiménez Soto  
+   - Supervisor de Atención al Cliente: Andrés Carreño  
+   - Coordinadora de Soporte Telefónico: Paula Gómez  
+   - Analista de Experiencia del Cliente (CX): Tomás Beltrán  
+
+**Objetivo General del Departamento:**  
+   Brindar una atención integral, eficiente y cercana a los clientes, fortaleciendo la relación con la empresa a través de procesos de comunicación claros, gestión ágil de incidencias y estrategias de fidelización que mejoren la satisfacción global.
+
+------------------------------------------------------------
+I. ACTIVIDAD GENERAL Y ESTADÍSTICAS DE CONTACTO
+------------------------------------------------------------
+
+1. **Resumen semanal de actividad:**
+   - Total de contactos gestionados: 3.870  
+   - Distribución por canal:
+        • Teléfono: 1.946 (50.3%)  
+        • Correo electrónico: 1.375 (35.5%)  
+        • Chat en línea / redes: 549 (14.2%)  
+   - Tiempo medio de respuesta:
+        • Telefónico: 1,3 minutos.  
+        • Email: 3,5 horas.  
+        • Chat: 2,1 minutos.  
+
+2. **Indicadores de desempeño:**
+   - Nivel de servicio (SLA): 96,7%.  
+   - Tasa de resolución en primer contacto (FCR): 88%.  
+   - Satisfacción del cliente (CSAT): 9,1/10.  
+   - Reclamos pendientes: 4 (≤ plazo máximo de gestión).  
+
+3. **Volumen de contactos por tipo de consulta:**
+   - Consultas comerciales: 44%.  
+   - Soporte técnico: 37%.  
+   - Servicios posventa y facturación: 19%.  
+
+------------------------------------------------------------
+II. SOPORTE AL CLIENTE Y GESTIÓN DE INCIDENCIAS
+------------------------------------------------------------
+
+1. **Incidencias registradas y gestionadas:**
+   - Total de incidencias: 118  
+   - Cerradas satisfactoriamente: 114 (97%).  
+   - Principales motivos:
+        • Retrasos en entregas.  
+        • Actualización de datos administrativos.  
+        • Inquietudes sobre garantías.  
+
+2. **Casos escalados a otros departamentos:**
+   - Logística / Operaciones: 9 casos.  
+   - Finanzas (cobros y reembolsos): 4 casos.  
+   - TI (incidencias de acceso digital): 3 casos.  
+
+3. **Mejoras implementadas:**
+   - Nuevo flujo simplificado de seguimiento de incidencias.  
+   - Plantillas personalizadas para comunicación post-caso.  
+   - Lanzamiento de encuestas instantáneas tras resolución.
+
+------------------------------------------------------------
+III. COMUNICACIÓN Y RELACIÓN CON CLIENTES
+------------------------------------------------------------
+
+1. **Campañas de contacto proactivo:**
+   - Campaña “Gracias por tu confianza 2025” enviada al total de registros activos.  
+   - Tasa de apertura del correo: 56%.  
+   - Respuesta positiva general: 92%.  
+
+2. **Gestión de retroalimentación (feedback):**
+   - Recolección de opiniones mediante encuestas web.  
+   - 1.287 respuestas recibidas esta semana.  
+   - Principales menciones:
+        • Rapidez de atención (30%).  
+        • Amabilidad del personal (24%).  
+        • Respuesta técnica efectiva (19%).  
+
+3. **Colaboración con Marketing:**
+   - Coordinación del envío de newsletters corporativos.  
+   - Validación del tono comunicacional y contenidos de campañas.  
+   - Asistencia en gestión de respuestas automáticas durante campañas activas.  
+
+------------------------------------------------------------
+IV. ATENCIÓN COMERCIAL Y FIDELIZACIÓN
+------------------------------------------------------------
+
+1. **Gestión de clientes recurrentes:**
+   - Total de clientes con seguimiento activo: 216.  
+   - Programación de llamadas semiestructuradas postventa.  
+   - Identificación de 12 oportunidades de venta cruzada (upselling).  
+
+2. **Programa “Clientes Oro”:**
+   - Nuevas adhesiones: 9 empresas incorporadas.  
+   - Beneficios activos:
+        • Línea directa dedicada.  
+        • Atención prioritaria.  
+        • Monitoreo postventa personalizado.  
+
+3. **Acciones de fidelización:**
+   - Envío de tarjetas digitales de agradecimiento.  
+   - Seguimiento de satisfacción a los 7 días de cierre de incidencia.  
+   - Notificación automática de renovación de contratos.  
+
+------------------------------------------------------------
+V. COORDINACIÓN INTERNA Y FLUJO OPERATIVO
+------------------------------------------------------------
+
+1. **Con Dirección General:**
+   - Revisión de métricas de satisfacción trimestral.  
+   - Presentación de gráfico de evolución del índice de retención.  
+
+2. **Con Departamento de TI:**
+   - Coordinación sobre reporte de uso del chatbot interno.  
+   - Soporte técnico recibido sobre sistema de tickets (incidencia menor resuelta).  
+   - Participación en análisis de endpoints restringidos para seguridad.  
+
+3. **Con Coordinación Institucional:**
+   - Sincronización de calendarios de atención entre sedes.  
+   - Estándar único para reportes interdepartamentales.  
+   - Validación conjunta de protocolos de atención.  
+
+------------------------------------------------------------
+VI. CALIDAD DE SERVICIO Y MEJORA CONTINUA
+------------------------------------------------------------
+
+1. **Auditoría interna de atención:**
+   - Monitoreo aleatorio de 80 llamadas.  
+   - Índice de cumplimiento de guión y protocolo: 95%.  
+   - Casos de mejora: tono asertivo en cierre de contacto y documentación post-llamado.  
+
+2. **Capacitación del equipo:**
+   - Tema: “Gestión empática de clientes difíciles”.  
+   - Participantes: 24 agentes.  
+   - Resultado de test práctico: 9/10 promedio.  
+
+3. **Proyectos de mejora continua:**
+   - Integración de IA en el CRM para clasificación automática de consultas.  
+   - Consolidación de histórico de contacto omnicanal.  
+   - Revisión del modelo de satisfacción CX para 2026.  
+
+------------------------------------------------------------
+VII. PLANIFICACIÓN SEMANA DEL 15 AL 20 DE DICIEMBRE
+------------------------------------------------------------
+
+- Lunes 16: Revisión de indicadores CX trimestrales.  
+- Martes 17: Implementación del módulo de mejora de flujo de tickets.  
+- Miércoles 18: Taller de comunicación efectiva y empatía.  
+- Jueves 19: Coordinación general con Ventas para cierre comercial 2025.  
+- Viernes 20: Presentación de informe anual al Comité de Dirección.  
+
+------------------------------------------------------------
+**Observaciones finales de la Jefa del Departamento de Contacto:**
+La gestión del área ha mantenido niveles de satisfacción y servicio por encima de los estándares previstos, destacando la mejora en la resolución en primer contacto y tiempos de respuesta. Para 2026, el objetivo principal será consolidar la experiencia omnicanal, automatizar la gestión de incidencias y fortalecer la comunicación humana como diferencial competitivo.
+
+Documento elaborado por:  
+Departamento de Contacto y Experiencia del Cliente  
+Fecha: 15 de diciembre de 2025
+------------------------------------------------------------

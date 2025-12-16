@@ -1,0 +1,152 @@
+------------------------------------------------------------
+DEPARTAMENTO DE FINANZAS Y CONTROL INTERNO
+SIMULACIÓN DE ACTIVIDADES Y REGISTRO SEMANAL
+Periodo: 8 al 14 de Diciembre de 2025
+------------------------------------------------------------
+
+**Responsable del Departamento:**  
+   - Director Financiero (CFO): Lic. Javier A. Moreno  
+   - Subdirectora de Control Presupuestario: Elena Duarte  
+   - Analista Senior de Tesorería: Carlos Méndez  
+   - Coordinadora Administrativa: Patricia Román  
+
+**Objetivo General del Departamento:**  
+   Garantizar la estabilidad financiera, el cumplimiento normativo y la optimización de los recursos económicos de la organización, mediante una gestión presupuestaria eficiente y la mejora continua de los procesos contables y de control.
+
+------------------------------------------------------------
+I. CONTROL PRESUPUESTARIO Y PLANIFICACIÓN ECONÓMICA
+------------------------------------------------------------
+
+1. **Revisión de ejecución presupuestaria (Q4 2025):**
+   - Presupuesto ejecutado al 88%.  
+   - Desviaciones principales:
+        • +3.4% en gastos operativos por ajustes logísticos.  
+        • -2.1% en costes de personal por vacantes no cubiertas.  
+   - Acciones tomadas:
+        • Reasignación de partidas sobrantes a proyectos tecnológicos (Horizonte Digital).  
+        • Solicitud de revisión para cierre contable proyectado el 29 de diciembre.
+
+2. **Proyección de cierre anual:**  
+   - Estimación de resultado neto: +2.3% sobre lo presupuestado.  
+   - Ebitda proyectado: 6.8 M€.  
+   - Ingresos acumulados 2025: 78.4 M€ (objetivo anual: 76 M€).
+
+3. **Revisión de política presupuestaria 2026:**
+   - Implementación de nuevo modelo de control trimestral dinámico.  
+   - Inclusión de alertas automáticas de desviaciones vía ERP financiero.  
+   - Adaptación al nuevo marco tributario nacional 2026.
+
+------------------------------------------------------------
+II. GESTIÓN DE TESORERÍA Y LIQUIDEZ
+------------------------------------------------------------
+
+1. **Estado de tesorería semanal:**
+   - Saldo bancario consolidado: 6.150.000 €.  
+   - Liquidez operativa disponible: 2.100.000 €.  
+   - Ingresos más relevantes:
+        • Facturación recurrente clientes premium (1.87 M€).  
+        • Cobros internacionales en EUR y USD (0.43 M€).  
+   - Pagos destacados:
+        • Nóminas y Seguridad Social (0.89 M€).  
+        • Proveedores estratégicos (1.15 M€).  
+
+2. **Gestión de bancos y relaciones financieras:**  
+   - Negociación cerrada con Banco ProComercial para mejora de líneas de crédito (+2 M€).  
+   - Consolidación de cuentas en entidades nacionales y reducción de comisiones en 14%.  
+   - Activación de módulo de conciliación automática diaria.
+
+3. **Tesorería proyectada (enero 2026):**
+   - Flujo de caja previsto: positivo en 780.000 €.  
+   - Riesgo de iliquidez: mínimo (índice de cobertura 1.47).  
+   - Recomendación CFO: incremento del fondo de reserva en 5%.
+
+------------------------------------------------------------
+III. CONTABILIDAD GENERAL Y REPORTES TRIBUTARIOS
+------------------------------------------------------------
+
+1. **Cierre contable mensual (noviembre 2025):**
+   - Asientos verificados: 100%.  
+   - Ajustes menores en amortizaciones y provisiones por valor de 32.000 €.  
+   - Balance general actualizado y conciliado con área de Compras.
+
+2. **Control fiscal y obligaciones tributarias:**
+   - Presentación de modelo de IVA trimestral completada.  
+   - Declaración de retenciones de IRPF enviada y validada.  
+   - Preparación en curso para auditoría fiscal anual (fecha: 15 de enero de 2026).  
+
+3. **Política contable interna:**
+   - Revisión del Manual Contable Institucional.  
+   - Implementación del módulo de trazabilidad de facturación electrónica.  
+   - Nuevo sistema de validación de gastos con doble autorización.
+
+------------------------------------------------------------
+IV. AUDITORÍA Y CONTROL INTERNO
+------------------------------------------------------------
+
+1. **Auditoría interna programada (19 de diciembre 2025):**
+   - Foco: control presupuestario, conciliación bancaria y cumplimiento contable.  
+   - Responsables designados: Elena Duarte y equipo de control interno.  
+   - Entregables previstos: informe preliminar + plan de mejora 2026.
+
+2. **Auditoría externa (enero 2026):**
+   - Coordinación con la firma auditora “García & Asociados”.  
+   - Validación oficial de estados financieros prevista para mediados de febrero.  
+   - Actualización del checklist normativo ISO 37301 (cumplimiento legal).
+
+3. **Controles internos reforzados:**
+   - Implementación del sistema antifraude automatizado (fase 1).  
+   - Trazabilidad de operaciones financieras en tiempo real.  
+   - Creación del Comité de Cumplimiento Económico.
+
+------------------------------------------------------------
+V. ANÁLISIS FINANCIERO Y REPORTES GERENCIALES
+------------------------------------------------------------
+
+1. **Informes realizados:**
+   - Reporte de rentabilidad por unidad de negocio.  
+   - Análisis de endeudamiento corporativo y proyección 2026.  
+   - Informe de evolución de margen bruto por línea de producto.
+
+2. **Indicadores clave (KPI’s financieros):**
+   - Margen operativo bruto: 14.6%.  
+   - Retorno sobre capital (ROE): 9.3%.  
+   - Ratio de liquidez corriente: 1.71.  
+   - Promedio de cobro a clientes: 34 días (objetivo: ≤30 días).
+
+3. **Plan financiero 2026-2028 (en desarrollo):**
+   - Diversificación de fuentes de ingresos.  
+   - Modelo de gestión de coste basado en actividades (ABC).  
+   - Introducción de herramientas de Business Intelligence financiera.
+
+------------------------------------------------------------
+VI. COORDINACIÓN INTERDEPARTAMENTAL Y COMUNICACIÓN
+------------------------------------------------------------
+
+1. **Reunión con Dirección General (Lunes 9 de diciembre):**
+   - Presentación de resultados de Q4.  
+   - Revisión conjunta del presupuesto y estrategia de inversión 2026.  
+   - Compromiso de ajustar indicadores en función de expansión de sedes.
+
+2. **Soporte a otros departamentos:**
+   - Recursos Humanos: análisis de costes salariales y simulación de incremento del 3%.  
+   - Operaciones: liberación de partidas para logística.  
+   - Marketing: aprobación del incremento presupuestario del 9%.
+
+------------------------------------------------------------
+VII. AGENDA Y PLANIFICACIÓN PRÓXIMA SEMANA
+------------------------------------------------------------
+
+- Lunes 16: Revisión general de indicadores financieros 2025.  
+- Martes 17: Preparación y validación de auditoría interna.  
+- Miércoles 18: Seguimiento de Tesorería y control de cobros.  
+- Jueves 19: Ejecución de auditoría interna.  
+- Viernes 20: Informe consolidado de cierre del año 2025.
+
+------------------------------------------------------------
+**Observaciones finales del Director Financiero:**
+El departamento mantiene la solidez económica prevista en los objetivos estratégicos. La compañía cerrará el ejercicio 2025 con balance positivo, alta liquidez y una estructura financiera estable. Las prioridades para el primer trimestre de 2026 incluyen automatización contable, transparencia presupuestaria y fortalecimiento del control interno.
+
+Documento elaborado por:  
+Departamento de Finanzas y Control Interno  
+Fecha: 15 de diciembre de 2025
+------------------------------------------------------------
