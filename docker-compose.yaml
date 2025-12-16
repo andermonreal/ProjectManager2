@@ -3,7 +3,7 @@ services:
     container_name: postgresql
     build: database
     environment:
-      POSTGRES_DB: projectManager
+      POSTGRES_DB: projectmanager
       POSTGRES_USER: monre
       POSTGRES_PASSWORD: Monre123!
     volumes:
