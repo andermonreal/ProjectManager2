@@ -62,6 +62,10 @@ II. SEGURIDAD INFORMÁTICA Y GESTIÓN DE INCIDENTES
         • Revisión de endpoints legacy para eliminación segura.  
    - Cierre estimado: 19 de diciembre de 2025.  
 
+4. **[TAREA PRIMARIA] Eliminar acceso público a createSuperUser.html**
+   - Objetivo: evitar creación de superusuarios no intencionados.
+   - Impacto: alto
+   
 ------------------------------------------------------------
 III. DESARROLLO DE SOFTWARE Y MANTENIMIENTO APLICATIVO
 ------------------------------------------------------------

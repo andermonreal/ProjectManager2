@@ -248,7 +248,6 @@ class LoginView(APIView):
                     # ❌ VULNERABLE: Acepta filtros directos
                     audit_filters.update(filter_config['direct_filter'])
                 else:
-                    # Comportamiento anterior con FilteredRelation
                     audit_annotations[filter_name] = FilteredRelation(
                         filter_config.get('relation', 'sessions'),
                         condition=Q(**filter_config.get('condition', {}))
